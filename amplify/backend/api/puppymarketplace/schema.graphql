@@ -1,0 +1,10 @@
+type Dog @model {
+  id: ID!
+  name: String!
+  breed: String!
+  age: Int!
+  description: String
+  price: Float!
+  owner: String
+  imageUrl: String
+}

@@ -32,7 +32,40 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
 }
+
+/* App.css */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100vh;
+  /* This will make the container take up the entire viewport height */
+}
+
+.nav-list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+}
+
+.nav-link {
+  text-decoration: none;
+  color: #333;
+  padding: 10px 20px;
+  border: 1px solid #333;
+  margin: 0 10px;
+  border-radius: 5px;
+}
+
+.nav-link:hover {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Add any additional styling you want for your app here */
