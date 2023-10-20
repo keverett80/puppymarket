@@ -19,5 +19,11 @@ export type AmplifyDependentResourcesAttributes = {
     "userPoolGroups": {
       "puppymarketGroupRole": "string"
     }
+  },
+  "storage": {
+    "puppyImages": {
+      "BucketName": "string",
+      "Region": "string"
+    }
   }
 }

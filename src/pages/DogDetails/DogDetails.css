@@ -1,0 +1,11 @@
+/* Styles.css or App.css */
+.dog-thumbnail {
+    width: 100px !important;
+    /* adjust width as per your preference */
+    height: 100px !important;
+    /* adjust height as per your preference */
+    object-fit: cover !important;
+    /* ensures the aspect ratio is maintained */
+    cursor: pointer !important;
+    /* indicates that the image is clickable */
+}

@@ -1,0 +1,146 @@
+.wider-card {
+    width: 100%;
+    /* Adjust the width as needed, e.g., 80% of the parent container */
+    margin: 0 auto;
+    /* Center the card horizontally */
+    margin-bottom: '4rem';
+}
+
+
+/* CSS class for pink color (female) */
+.gender-col {
+    font-size: 1.2rem;
+    /* Increase the font size as needed */
+    color: #333;
+    /* Adjust the color if necessary */
+}
+
+/* Define styles for the icon colors */
+.blue-icon {
+    color: blue;
+}
+
+.pink-icon {
+    color: pink;
+}
+
+.dog-card {
+
+    padding: 16px;
+    margin-bottom: 16px;
+
+}
+
+.dog-info-section {
+    background-color: #fff !important;
+    /* Use the desired background color */
+}
+
+
+.dog-image {
+    max-width: 100%;
+    margin: 0 auto;
+    height: 300px;
+    object-fit: cover;
+    border-radius: 8px;
+}
+
+.dog-info-body {
+    /* Add styles to differentiate and style this section */
+    background-color: #f9f9f9;
+    padding: 16px;
+
+}
+
+.dog-name {
+    font-size: 1.5rem;
+    margin-bottom: 8px;
+    color: #333;
+}
+
+.dog-info-body .card-text {
+    font-size: 1rem;
+    color: #666;
+}
+
+.dog-info-body .card-text div {
+    margin-bottom: 4px;
+}
+
+/* Add any other styles you need for differentiation and styling */
+
+
+.dog-info {
+    font-size: 1.2rem;
+    /* Increase the font size for the entire section */
+
+    color: #666;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.dog-info-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.info-label {
+
+    /* Make the labels bold */
+    color: #333;
+}
+
+/* Adjust the style of the values */
+.dog-info-item strong {
+    font-weight: bold;
+    /* Make the values bold */
+    color: #333;
+    /* Adjust the color of the values */
+    font-size: 1.1rem;
+    /* Increase the font size of the values */
+}
+
+
+
+.dog-info div {
+    margin-bottom: 4px;
+}
+
+.date-listed-col {
+    font-size: 0.8rem;
+    /* Decrease the font size as needed */
+    color: #666;
+    /* Adjust the color if necessary */
+}
+
+.date-listed-col strong {
+    font-weight: bold;
+    /* Keep the strong text bold */
+    font-size: 0.8rem;
+    /* Adjust the font size of the strong text if necessary */
+    color: #333;
+    /* Adjust the color if necessary */
+}
+
+.breed-label {
+
+    font-style: italic;
+    /* Add italic style */
+    color: #007bff;
+    /* You can adjust the color as needed */
+    font-size: 1.2rem;
+    /* You can adjust the font size as needed */
+    margin-right: 4px;
+    /* Add spacing to the right of the label */
+}
+
+
+.centered-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* Center the content vertically */
+}

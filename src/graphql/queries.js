@@ -7,11 +7,17 @@ export const getDog = /* GraphQL */ `
       id
       name
       breed
-      age
+      birthDate
       description
       price
       owner
-      imageUrl
+      imageUrls
+      dateListed
+      gender
+      location
+      state
+      verified
+      type
       createdAt
       updatedAt
       __typename
@@ -29,11 +35,58 @@ export const listDogs = /* GraphQL */ `
         id
         name
         breed
-        age
+        birthDate
         description
         price
         owner
-        imageUrl
+        imageUrls
+        dateListed
+        gender
+        location
+        state
+        verified
+        type
+        createdAt
+        updatedAt
+        __typename
+      }
+      nextToken
+      __typename
+    }
+  }
+`;
+export const dogByDate = /* GraphQL */ `
+  query DogByDate(
+    $type: String!
+    $dateListed: ModelStringKeyConditionInput
+    $sortDirection: ModelSortDirection
+    $filter: ModelDogFilterInput
+    $limit: Int
+    $nextToken: String
+  ) {
+    dogByDate(
+      type: $type
+      dateListed: $dateListed
+      sortDirection: $sortDirection
+      filter: $filter
+      limit: $limit
+      nextToken: $nextToken
+    ) {
+      items {
+        id
+        name
+        breed
+        birthDate
+        description
+        price
+        owner
+        imageUrls
+        dateListed
+        gender
+        location
+        state
+        verified
+        type
         createdAt
         updatedAt
         __typename

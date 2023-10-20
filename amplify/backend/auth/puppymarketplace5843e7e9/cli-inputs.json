@@ -2,7 +2,7 @@
   "version": "1",
   "cognitoConfig": {
     "identityPoolName": "puppymarketplace5843e7e9_identitypool_5843e7e9",
-    "allowUnauthenticatedIdentities": false,
+    "allowUnauthenticatedIdentities": true,
     "resourceNameTruncated": "puppym5843e7e9",
     "userPoolName": "puppymarketplace5843e7e9_userpool_5843e7e9",
     "autoVerifiedAttributes": [

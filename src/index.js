@@ -7,7 +7,13 @@ import reportWebVitals from './reportWebVitals';
 import { Amplify } from 'aws-amplify'
 import config from './aws-exports';
 import 'bootstrap/dist/css/bootstrap.min.css';
-Amplify.configure(config);
+Amplify.configure({
+  ...config,
+  Storage: {
+      ...config.Storage,
+      region: 'us-east-1'  // replace 'us-west-2' with your actual region
+  }
+});
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(

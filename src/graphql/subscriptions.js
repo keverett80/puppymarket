@@ -7,11 +7,17 @@ export const onCreateDog = /* GraphQL */ `
       id
       name
       breed
-      age
+      birthDate
       description
       price
       owner
-      imageUrl
+      imageUrls
+      dateListed
+      gender
+      location
+      state
+      verified
+      type
       createdAt
       updatedAt
       __typename
@@ -24,11 +30,17 @@ export const onUpdateDog = /* GraphQL */ `
       id
       name
       breed
-      age
+      birthDate
       description
       price
       owner
-      imageUrl
+      imageUrls
+      dateListed
+      gender
+      location
+      state
+      verified
+      type
       createdAt
       updatedAt
       __typename
@@ -41,11 +53,17 @@ export const onDeleteDog = /* GraphQL */ `
       id
       name
       breed
-      age
+      birthDate
       description
       price
       owner
-      imageUrl
+      imageUrls
+      dateListed
+      gender
+      location
+      state
+      verified
+      type
       createdAt
       updatedAt
       __typename

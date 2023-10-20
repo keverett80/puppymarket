@@ -1,0 +1,6 @@
+.btn-on-top {
+    z-index: 9999;
+    /* You can adjust this value if needed */
+    position: relative;
+    /* Ensure the element has a position value other than 'static' for z-index to take effect */
+}

@@ -4,8 +4,17 @@
     "apiName": "puppymarketplace",
     "serviceName": "AppSync",
     "defaultAuthType": {
-      "mode": "API_KEY",
-      "expirationTime": 7
-    }
+      "mode": "AMAZON_COGNITO_USER_POOLS",
+      "cognitoUserPoolId": "authpuppymarketplace5843e7e9"
+    },
+    "additionalAuthTypes": [
+      {
+        "mode": "API_KEY",
+        "expirationTime": 365,
+        "apiKeyExpirationDate": "2024-10-15T20:42:05.210Z",
+        "keyDescription": "puppymarketplace"
+      }
+    ],
+    "conflictResolution": {}
   }
 }

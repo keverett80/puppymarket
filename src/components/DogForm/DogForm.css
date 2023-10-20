@@ -1,0 +1,73 @@
+.image-item {
+    display: flex;
+    margin: 10px 0;
+}
+
+.image-item__btn-wrapper {
+    display: flex;
+    flex-direction: column;
+    margin-left: 10px;
+}
+
+button {
+    height: 40px;
+}
+
+.autocomplete-dropdown {
+    border: 1px solid #ced4da;
+    border-top: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    z-index: 2;
+    max-height: 150px;
+    overflow-y: auto;
+}
+
+.autocomplete-dropdown li {
+    padding: 10px;
+    cursor: pointer;
+    background-color: #fff;
+}
+
+.autocomplete-dropdown li:hover {
+    background-color: #f8f9fa;
+}
+
+.breed-dropdown {
+    position: absolute;
+    /* Make the dropdown float above the content */
+    width: 100%;
+    /* Match the width of the input field */
+    max-height: 150px;
+    /* Limit the height to avoid covering the entire page */
+    overflow-y: auto;
+    /* Add scrollbar if there are too many breeds */
+    background-color: #ffffff;
+    /* Make the background white */
+    border: 1px solid #cccccc;
+    /* Add a border */
+    border-top: none;
+    /* Remove the top border to blend with the input field */
+    z-index: 1000;
+    /* Ensure the dropdown appears above other content */
+    border-bottom: none;
+    /* Remove the bottom border */
+}
+
+.breed-item {
+    padding: 8px 12px;
+    /* Add some padding for better appearance */
+    cursor: pointer;
+    /* Indicate the item is clickable */
+}
+
+.breed-item:hover {
+    background-color: #f7f7f7;
+    /* Change background on hover for better UX */
+}
+
+.form-group {
+    position: relative;
+}
