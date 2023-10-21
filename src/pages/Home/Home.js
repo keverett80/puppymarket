@@ -193,7 +193,10 @@ return (
 </Row>
 
 
-  </Container></div>
+  </Container>
+
+  </div>
+
 );
     }
 

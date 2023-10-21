@@ -1,0 +1,18 @@
+/* Footer.css */
+/* Updated Footer.css */
+.footer {
+    background-color: #c7c7c7;
+    color: #343a40;
+    width: 100%;
+    height: 60px;
+    /* Set a fixed height for the footer */
+    position: absolute;
+
+}
+
+
+.footer .fa-paw,
+.footer .fa-heart {
+    color: #343a40;
+    /* Matching the dark text color */
+}

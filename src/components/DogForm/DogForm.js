@@ -266,6 +266,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                         <Form.Label>Birth Date</Form.Label>
                         <Form.Control
                          className="bold-border"
+                         placeholder="Enter dog's birthday"
                             type="date"
                             name="birthDate"
                             value={dog.birthDate}
