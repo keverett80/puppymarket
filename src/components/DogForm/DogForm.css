@@ -1,3 +1,10 @@
+.bold-border {
+    border: 3px solid #c7c7c7 !important;
+    /* adjust as needed */
+}
+
+
+
 .image-item {
     display: flex;
     margin: 10px 0;

@@ -9,6 +9,7 @@ import { Button } from 'react-bootstrap';
 
 
 import CustomJumbotron from '../Landing';
+import './Home.css'
 
 
 function Home({ isAuthenticated, filterBreed, filterCity, handleLogin }) {
@@ -131,7 +132,8 @@ useEffect(() => {
 
 
 return (
-  <Container>
+  <div className='dogBg'>
+  <Container >
     {!isAuthenticated && (
       <CustomJumbotron isAuthenticated={isAuthenticated} handleLogin={handleLogin} />
     )}
@@ -191,7 +193,7 @@ return (
 </Row>
 
 
-  </Container>
+  </Container></div>
 );
     }
 

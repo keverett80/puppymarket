@@ -4,18 +4,31 @@ import { useNavigate } from 'react-router-dom';
 import { Auth } from 'aws-amplify';
 import UserProfileEditForm from './UserProfileEditForm';
 import { API, graphqlOperation } from 'aws-amplify';
+import { Link } from 'react-router-dom';
+import { ListGroup } from 'react-bootstrap';
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPaw } from '@fortawesome/free-solid-svg-icons';
+
+
+
+import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { listDogs } from './../graphql/queries';  // Ensure the path is correct
 
 const fetchUserPosts = async (ownerEmail) => {
   try {
-    const postData = await API.graphql(graphqlOperation(listDogs, {
-      filter: { owner: { eq: ownerEmail } }
-    }));
+    const postData = await API.graphql({
+      query: listDogs,
+      variables: {  limit: 5000,filter: { verified: { eq: ownerEmail } } }, // <-- Corrected this line
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
+    });
+    console.log('Returned data:', postData);
     return postData.data.listDogs.items;
   } catch (error) {
     console.error("Error fetching user's dog posts", error);
   }
 };
+
 
 function UserProfile() {
   const [user, setUser] = useState(null);
@@ -25,6 +38,7 @@ function UserProfile() {
   const fetchUser = async () => {
       try {
         const userData = await Auth.currentAuthenticatedUser();
+        console.log(userData.attributes)
         setUser(userData.attributes);
       } catch (error) {
         console.error("Error fetching user details", error);
@@ -37,12 +51,19 @@ function UserProfile() {
 
   useEffect(() => {
     if (user) {
-      fetchUserPosts(user.email).then(posts => {
-        console.log('fetching users post' + posts)
-        setUserPosts(posts);
-      });
+      fetchUserPosts(user.email)
+        .then(posts => {
+          console.log('fetching users post', posts);
+          setUserPosts(posts);
+        })
+        .catch(error => {
+          console.error('Error fetching user posts:', error);
+        });
     }
+
   }, [user]);
+
+
 
   return (
     <div>
@@ -78,16 +99,21 @@ function UserProfile() {
                     Edit Profile
                   </button>
                 )}
-                        <ul>
-  {userPosts.map(post => (
-    <li key={post.id}>
-      {post.name} - {post.breed} - {post.price}
-      {/* You can add a link to the detailed page here, if required */}
-    </li>
-  ))}
-</ul>
+
               </div>
             </div>
+            <ListGroup>
+  {userPosts.map(post => (
+    <ListGroup.Item key={post.id}>
+      <Link to={`/dogs/${post.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+
+        {post.name} <span className="ml-2 mr-2"> - </span> {post.breed} <span className="ml-2 mr-2"> - </span> ${post.price} <FontAwesomeIcon icon={faPaw} className="mr-2" />
+      </Link>
+    </ListGroup.Item>
+  ))}
+</ListGroup>
+
+
           </div>
           )}
 

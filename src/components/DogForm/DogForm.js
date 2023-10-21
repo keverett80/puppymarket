@@ -9,6 +9,8 @@ import './DogForm.css'
 import { v4 as uuidv4 } from 'uuid';
 import { LoadScript, GoogleMap, StandaloneSearchBox } from '@react-google-maps/api';
 import { Auth } from 'aws-amplify';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faDog } from '@fortawesome/free-solid-svg-icons';
 
 const getCurrentUser = async () => {
     try {
@@ -173,17 +175,22 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
 
 
   return (
+    <div className="no-background">
 <LoadScript googleMapsApiKey="AIzaSyAdnS_bTUUA8hlPRJkr0tDPBZ_vdA4hH9Y" libraries={libraries}>
-      <Container>
+      <Container className="no-background">
         <Row className="justify-content-center">
           <Col md={8}>
-            <h2 className="text-center mb-4">Add a Dog</h2>
+          <h2 className="text-center mb-4" style={{color: '#c7c7c7'}}>
+  <FontAwesomeIcon icon={faDog} className="mr-2" />
+  List your pup!
+</h2>
             <Form onSubmit={handleSubmit}>
               <Row>
                 <Col md={6}>
                 <Form.Group className="mb-6">
                     <Form.Label>Name</Form.Label>
                     <Form.Control
+                    className="bold-border"
                       type="text"
                       name="name"
                       placeholder="Enter dog name"
@@ -197,6 +204,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                 <Form.Group className="mb-3 position-relative">
     <Form.Label>Breed</Form.Label>
     <Form.Control
+     className="bold-border"
     type="text"
     name="breed"
     placeholder="Enter dog breed"
@@ -243,6 +251,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                   <Form.Group className="mb-3">
                     <Form.Label>Price</Form.Label>
                     <Form.Control
+                     className="bold-border"
                       type="number"
                       name="price"
                       placeholder="Enter dog price"
@@ -256,6 +265,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                 <Form.Group className="mb-3">
                         <Form.Label>Birth Date</Form.Label>
                         <Form.Control
+                         className="bold-border"
                             type="date"
                             name="birthDate"
                             value={dog.birthDate}
@@ -277,6 +287,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
 
                     >
                                     <Form.Control
+                                     className="bold-border"
                   type="text"
                   placeholder="Enter dog location"
                   value={inputValue}
@@ -292,6 +303,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                     <Form.Group className="mb-3">
                         <Form.Label>Gender</Form.Label>
                         <Form.Control
+                         className="bold-border"
                             as="select"
                             name="gender"
                             value={dog.gender}
@@ -311,6 +323,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
               <Form.Group className="mb-3">
                 <Form.Label>Description</Form.Label>
                 <Form.Control
+                 className="bold-border"
                   as="textarea"
                   name="description"
                   rows={3}
@@ -390,7 +403,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
             </Form>
           </Col>
         </Row>
-      </Container></LoadScript>
+      </Container></LoadScript></div>
   );
 }
 
