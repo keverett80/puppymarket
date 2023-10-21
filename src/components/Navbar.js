@@ -42,6 +42,7 @@ const handleCityChange = (event) => {
 
   const handleLogin = () => {
     // 2. Modify the handleLogin function
+    console.log("handleLogin function triggered!");
     setLoginClicked(true);
     navigate('/home');
   };
@@ -95,11 +96,20 @@ useEffect(() => {
 
   return (
 
-<Navbar expand="lg" className="bg-body-tertiary">
+<Navbar expand="lg" style={{backgroundColor: '#e8e8e8'}}>
+
+
     <Container fluid>
-      <Navbar.Brand href="/home" className="text-primary font-weight-bold"><FontAwesomeIcon icon={faPaw} className="mr-2" /> Puppy Marketplace</Navbar.Brand>
+      <Navbar.Brand onClick={handleLogin}href='#'  className="text-primary font-weight-bold"><FontAwesomeIcon icon={faPaw} className="mr-2" /> Little Paws Place</Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
+      {!isAuthenticated && (
+
+              <>
+
+<Button variant="primary" onClick={handleLogin}>Learn More</Button>
+              </>
+          )}
         <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
           {isAuthenticated && <Nav.Link href="/add-dog" className="text-primary font-weight-bold">Add Dog</Nav.Link>}
           {isAuthenticated && <Nav.Link href="/profile" className="text-primary font-weight-bold">Profile</Nav.Link>}
@@ -132,17 +142,18 @@ useEffect(() => {
                 </Button>
             )}
             {!isAuthenticated && (
+
                 <>
                     {loginClicked && (
-                        <Button
-                            className="btn-on-top  font-weight-bold"
-                            variant="outline-primary"
+                       <Button
+                       className="btn-on-top  font-weight-bold"
+                       variant="warning"
+                       onClick={handleCancelLogin}
+                       style={{ marginRight: '10px', color: 'white' }}  // added color property here
+                   >
+                       Cancel
+                   </Button>
 
-                            onClick={handleCancelLogin}
-                            style={{ marginRight: '10px' }}  // inline style for spacing
-                        >
-                            Cancel
-                        </Button>
                     )}
                     <Button
                         variant="outline-primary"

@@ -5,7 +5,45 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: url('./assets/puppies.png');
+  background-repeat: repeat;
+  background-size: contain;
+  /* or use specific dimensions */
+  background-attachment: fixed;
+  background-position: center center;
 }
+
+.amplify-button {
+  font-size: 2rem;
+  padding: 1rem 2rem;
+  background: blue !important;
+  color: white !important;
+
+  border: 2px solid black;
+}
+
+/* Style for the active tab item */
+.amplify-tabs-item:focus,
+.amplify-tabs-item:active {
+  color: black !important;
+  border-color: blue !important;
+}
+
+.amplify-tabs-item:first-child {
+  color: black !important;
+  border-color: blue !important;
+}
+
+.amplify-tabs-item:first-child:hover {
+  color: black !important;
+}
+
+.amplify-tabs-item:hover {
+  color: black !important;
+}
+
+
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',

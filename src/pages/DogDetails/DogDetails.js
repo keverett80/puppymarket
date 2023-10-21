@@ -2,15 +2,15 @@ import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import { API, Storage } from 'aws-amplify';  // <-- Added GRAPHQL_AUTH_MODE import
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
+import * as mutations from '../../graphql/mutations';
+import { useNavigate } from 'react-router-dom';
 
 import { getDog } from '../../graphql/queries';
 import { Card, Button, Row, Col,Modal } from 'react-bootstrap';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
 
-import { NavLink } from 'react-router-dom';
+import Form from 'react-bootstrap/Form';
+
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
@@ -18,6 +18,7 @@ import { Auth } from 'aws-amplify';
 import './DogDetails.css'
 
 function DogDetails() {
+  const navigate = useNavigate();
   const [dog, setDog] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
   const [showModal, setShowModal] = useState(false); // State to control modal visibility
@@ -25,6 +26,55 @@ function DogDetails() {
   const { id } = useParams();
   const [contactModalVisible, setContactModalVisible] = useState(false);
   const [contactDetails, setContactDetails] = useState({ name: '', phone: '', email: '', message: '' });
+  const [userEmail, setUserEmail] = useState('');
+
+useEffect(() => {
+  const fetchUserEmail = async () => {
+    try {
+      const user = await Auth.currentAuthenticatedUser();
+      setUserEmail(user.attributes.email);
+    } catch (error) {
+      console.error('Error fetching user email: ', error);
+    }
+  };
+
+  fetchUserEmail();
+}, []);
+const deleteDogPost = async () => {
+  try {
+    // Delete images from S3
+   if (dog.imageUrls && Array.isArray(dog.imageUrls)) {
+      for (const imageUrlKey of dog.imageUrls) {
+        await Storage.remove(imageUrlKey);
+      }
+    }
+
+    // Delete the post from the database
+    console.log(dog.id)
+    const result = await API.graphql({
+      query: mutations.deleteDog,
+      variables: {
+        input: { id: dog.id },
+
+      },
+      authMode: GRAPHQL_AUTH_MODE.AMAZON_COGNITO_USER_POOLS
+    });
+
+    if (result.data.deleteDog) {
+      alert('Dog post successfully deleted.');
+      // Navigate to another page or refresh current page
+      // For example:
+      navigate('/home');
+
+    } else {
+      alert('Error deleting dog post.');
+    }
+  } catch (error) {
+    console.error('Error deleting dog post:', error);
+    alert('Error deleting dog post. Please try again later.');
+  }
+};
+
 
   const isFormValid = () => {
     if (!contactDetails.name || !contactDetails.email || !contactDetails.phone || !contactDetails.message) {
@@ -324,13 +374,19 @@ function DogDetails() {
     })}
   </strong>
 </div>
-<Button onClick={() => {
+{userEmail !== dog.verified && (<Button onClick={() => {
   if (dog.verified) {
     setContactModalVisible(true);
   } else {
     alert("The owner's email is not verified. You can't contact them at the moment.");
   }
-}}>Contact</Button>
+}}>Contact</Button>)}
+
+{userEmail === dog.verified && (
+  <Button variant="danger" onClick={deleteDogPost}>
+   Remove Listing
+  </Button>
+)}
 
 </Card.Footer>
 

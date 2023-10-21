@@ -12,7 +12,7 @@ function CustomJumbotron({ isAuthenticated, handleLogin }) {
         Dive into a world of adorable puppies ready for a new home. Whether you're looking to find your next companion or place an ad for your puppy, we've got you covered.
       </div>
       <hr className="my-4" />
-      <Button variant="primary" onClick={handleLogin}>Learn More</Button>
+
     </div>
   );
 }

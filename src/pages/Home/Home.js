@@ -28,9 +28,20 @@ const startIndex = (currentPage - 1) * itemsPerPage;
 const endIndex = startIndex + itemsPerPage;
 const dogsToDisplay = filteredDogs.slice(startIndex, endIndex);
 
+const totalPages = Math.ceil(filteredDogs.length / itemsPerPage);
+
+const generatePageNumbers = () => {
+  let start = Math.max(currentPage - 2, 1);
+  let end = Math.min(start + 4, totalPages);
+  return Array.from({length: (end - start + 1)}, (_, i) => start + i);
+};
+const pageNumbers = generatePageNumbers();
+
 const handleFrontendNextPage = () => {
-  setCurrentPage(currentPage + 1);
-  window.scrollTo(0, 0);
+  if (currentPage < totalPages) {
+      setCurrentPage(currentPage + 1);
+      window.scrollTo(0, 0);
+  }
 };
 
 const handleFrontendPrevPage = () => {
@@ -38,7 +49,8 @@ const handleFrontendPrevPage = () => {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
   }
-}
+};
+
 const calculateAge = birthDateStr => {
   const birthDate = new Date(birthDateStr);
   const today = new Date();
@@ -67,8 +79,8 @@ const calculateAge = birthDateStr => {
 
 useEffect(() => {
   //console.log("Breed Filter:", filterBreed);
-  //console.log("City Filter:", filterCity);
-}, [filterBreed, filterCity]);
+  //console.log("City Filter:", handleLogin);
+}, [filterBreed, filterCity,handleLogin]);
 
 
   useEffect(() => {
@@ -93,7 +105,7 @@ useEffect(() => {
           variables: {
             type: 'Dog',
             sortDirection: 'DESC',
-            limit: 2000,
+            limit: 5000,
             nextToken: token
           },
           authMode: GRAPHQL_AUTH_MODE.API_KEY
@@ -116,23 +128,7 @@ useEffect(() => {
        console.error("Error fetching dogs:", error);
     }
   };
-  const handleNextPage = () => {
-    if (nextToken) {
-      fetchDogs(nextToken);
-      window.scrollTo(0, 0);
-    }
-  };
 
-  const handlePrevPage = async () => {
-    // Get the last token from the stack
-    const prevToken = prevTokens.pop();
-
-    // Update prevTokens state without the last token
-    setPrevTokens(prevTokens);
-
-    await fetchDogs(prevToken);
-    window.scrollTo(0, 0);
-};
 
 return (
   <Container>
@@ -156,20 +152,45 @@ return (
     )))}
 
     {/* Frontend Pagination controls */}
-    <Row className="justify-content-center mb-4">
-      <Col md={6} className="d-flex justify-content-between">
-        <Button variant="secondary" onClick={handleFrontendPrevPage} disabled={currentPage === 1}>Prev (frontend)</Button>
-        <Button variant="secondary" onClick={handleFrontendNextPage} disabled={currentPage * itemsPerPage >= filteredDogs.length}>Next (frontend)</Button>
-      </Col>
-    </Row>
 
-    {/* Backend Pagination controls */}
     <Row className="justify-content-center mb-4">
-      <Col md={6} className="d-flex justify-content-between">
-        <Button variant="primary" onClick={handlePrevPage} disabled={prevTokens.length === 0}>Previous Page</Button>
-        <Button variant="primary" onClick={handleNextPage} disabled={!nextToken}>Next Page</Button>
-      </Col>
-    </Row>
+    <Col md={6} className="d-flex justify-content-between align-items-center">
+        {/* Prev Button */}
+        <Button variant="secondary" onClick={handleFrontendPrevPage} disabled={currentPage === 1}>
+            Prev
+        </Button>
+
+        {/* Page Numbers */}
+        {/* Page Numbers */}
+<div className="d-flex justify-content-center">
+    {pageNumbers.map(page => (
+        <Button
+            key={page}
+            variant={page === currentPage ? "primary" : "secondary"}
+            onClick={() => setCurrentPage(page)}
+            className="mr-2"  // added spacing class here
+            style={{ marginRight: "10px" }}  // added inline style for spacing
+        >
+            {page}
+        </Button>
+    ))}
+</div>
+
+
+        {/* Next Button */}
+        <Button variant="secondary" onClick={handleFrontendNextPage} disabled={currentPage * itemsPerPage >= filteredDogs.length}>
+            Next
+        </Button>
+    </Col>
+</Row>
+
+<Row className="justify-content-center mb-4">
+    <Col md={6} className="d-flex justify-content-center">
+        <div>Total Records: {filteredDogs.length}</div>
+    </Col>
+</Row>
+
+
   </Container>
 );
     }

@@ -4,3 +4,7 @@
     position: relative;
     /* Ensure the element has a position value other than 'static' for z-index to take effect */
 }
+
+.bg-body-tertiary {
+    background-color: #c7c7c7 !important;
+}

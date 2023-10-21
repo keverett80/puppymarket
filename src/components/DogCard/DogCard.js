@@ -1,8 +1,8 @@
 import React from 'react';
-import { Card, Button, Row, Col } from 'react-bootstrap';
+import { Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
+import { faVenus, faMars, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import './DogCard.css'
 
@@ -16,7 +16,8 @@ const DogCard = ({ dog, age }) => {
 <Card.Header className="dog-info-section">
       <Row>
       <Col className="gender-col">
-  {dog.gender === 'Male' ? (
+  {dog.gender === 'MALE' ? (
+    console.log(dog.gender),
     <FontAwesomeIcon icon={faMars} className="mr-2 blue-icon" /> // Male icon with blue color
   ) : (
     <FontAwesomeIcon icon={faVenus} className="mr-2 pink-icon" /> // Female icon with pink color
@@ -77,9 +78,16 @@ const DogCard = ({ dog, age }) => {
 
 
 <Card.Footer className="dog-info-section">
+{dog.verified !== null && (
+<div className="badge-container">
+<Badge bg="success" className='my-3'> <FontAwesomeIcon icon={faCheckCircle} /> Verified</Badge>
+</div>
+  )}
+  <div className='my-3'>
   <em>{dog.description}</em>
+  </div>
 
-  <div className="d-flex justify-content-end">
+  <div className="d-flex justify-content-left my-3">
     Date Listed:&nbsp;<strong>
       {new Date(dog.dateListed).toLocaleDateString('en-US', {
         year: 'numeric',
