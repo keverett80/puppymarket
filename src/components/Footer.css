@@ -1,12 +1,10 @@
 /* Footer.css */
 /* Updated Footer.css */
 .footer {
-    background-color: #c7c7c7;
+    background-color: #e8e8e8;
     color: #343a40;
     width: 100%;
-    height: 60px;
-    /* Set a fixed height for the footer */
-    position: absolute;
+
 
 }
 
@@ -15,4 +13,19 @@
 .footer .fa-heart {
     color: #343a40;
     /* Matching the dark text color */
+}
+
+/* Add this to your App.css */
+
+.app-container {
+    display: flex;
+    flex-direction: column;
+    /* stacks children vertically */
+    min-height: 100vh;
+    /* occupy full viewport height */
+}
+
+.container.mt-4 {
+    flex: 1;
+    /* allows the main content to grow and occupy available space */
 }

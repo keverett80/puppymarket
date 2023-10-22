@@ -3,7 +3,7 @@ import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter as Router, Route, Switch, NavLink, Routes } from 'react-router-dom';
 import './authStyles.css';
-import Footer from './components/Footer'; // Adjust the path accordingly
+import Footer from './components/MyFooter'; // Adjust the path accordingly
 
 import { withAuthenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -72,7 +72,7 @@ function App() {
 
   return (
     <Router>
-      <div>
+      <div className="app-container">
         {/* Navigation */}
         <NavbarComponent
           isAuthenticated={isAuthenticated}
@@ -106,9 +106,9 @@ function App() {
 } />
           </Routes>
         </Container>
-
+        <> <Footer /></>
       </div>
-      <> <Footer /></>
+
     </Router>
 
   );
