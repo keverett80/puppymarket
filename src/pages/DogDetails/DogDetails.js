@@ -43,11 +43,11 @@ useEffect(() => {
 const deleteDogPost = async () => {
   try {
     // Delete images from S3
-   if (dog.imageUrls && Array.isArray(dog.imageUrls)) {
+  /*  if (dog.imageUrls && Array.isArray(dog.imageUrls)) {
       for (const imageUrlKey of dog.imageUrls) {
         await Storage.remove(imageUrlKey);
       }
-    }
+    } */
 
     // Delete the post from the database
     console.log(dog.id)
@@ -383,7 +383,7 @@ const deleteDogPost = async () => {
 }}>Contact</Button>)}
 
 {userEmail === dog.verified && (
-  <Button variant="danger" onClick={deleteDogPost}>
+  <Button variant="danger" onClick={deleteDogPost} className="my-3">
    Remove Listing
   </Button>
 )}

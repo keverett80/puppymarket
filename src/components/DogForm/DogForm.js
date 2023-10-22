@@ -398,9 +398,9 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                 </Form.Group>
 
 
-              <Button variant="outline-primary" type="submit">
-                Add Dog
-              </Button>
+                <Button variant="outline-primary" type="submit" className="my-3">
+    Add Dog
+</Button>
             </Form>
           </Col>
         </Row>
