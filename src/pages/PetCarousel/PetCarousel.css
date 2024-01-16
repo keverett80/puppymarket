@@ -1,0 +1,16 @@
+.pet-carousel img {
+    max-height: 400px;
+    /* Adjust as per your design */
+    object-fit: cover;
+}
+
+.pet-carousel .carousel-caption {
+    background-color: transparent;
+    /* Semi-transparent background for text */
+    color: white;
+}
+
+.pet-carousel .carousel-caption a {
+    color: #00BFFF;
+    /* Adjust link color as needed */
+}

@@ -1,19 +1,40 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Card, Button, Row, Col, Badge } from 'react-bootstrap';
 import { NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVenus, faMars, faCheckCircle } from '@fortawesome/free-solid-svg-icons';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
-import './DogCard.css'
+import { faVenus, faMars, faCheckCircle, faPaw } from '@fortawesome/free-solid-svg-icons';
+import './DogCard.css';
+
 
 const DogCard = ({ dog, age }) => {
-  // Construct the full URL for the image
-  const imageUrl = `https://puppymarketplaces155206-dev.s3.amazonaws.com/public/${dog.imageUrls[0]}`;
 
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+
+      setIsLoading(true);
+      try {
+
+        setIsLoading(false);
+      } catch (err) {
+        setError(err);
+        setIsLoading(false);
+      }
+
+
+
+  }, []);
+
+  const imageUrl = dog.imageUrls?.[0] ? `https://puppymarketplaces155206-dev.s3.amazonaws.com/public/${dog.imageUrls[0]}` : 'defaultImageUrl';
+
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>Error: {error.message}</div>;
   return (
+    <div>
     <Card className="wider-card">
-
-<Card.Header className="dog-info-section">
+      <Card.Header className="dog-info-section">
       <Row>
       <Col className="gender-col">
   {dog.gender === 'MALE' ? (
@@ -32,28 +53,21 @@ const DogCard = ({ dog, age }) => {
 
 
       </Row>
-    </Card.Header>
+      </Card.Header>
 
-
-
-    <Card.Body className="dog-info-section">
-  <div className="dog-info-section">
-    <Row className="dog-card">
-      <Col md={{ span: 5, order: 2 }}>
-        <Card.Img
-          src={imageUrl}
-          className="dog-image"
-          alt={dog.name}
-        />
-      </Col>
-      <Col md={{ span: 7, order: 1 }}>
-
-        <Card.Text className="dog-info">
+      <Card.Body className="dog-info-section">
+        <div className="dog-info-section">
+          <Row className="dog-card">
+            <Col md={{ span: 5, order: 2 }}>
+              <Card.Img src={imageUrl} className="dog-image" alt={dog.name} />
+            </Col>
+            <Col md={{ span: 7, order: 1 }}>
+            <Card.Text className="dog-info">
           <div className="dog-info-item">
             <span className="info-label">Nickname:</span> <strong>{dog.name}</strong>
           </div>
           <div className="dog-info-item">
-            <span className="info-label">Price:</span> <strong>${dog.price}</strong>
+            <span className="info-label">Rehoming fee:</span> <strong>${dog.price}</strong>
           </div>
           <div className="dog-info-item">
             <span className="info-label">Age:</span> <strong>{age}</strong>
@@ -69,16 +83,13 @@ const DogCard = ({ dog, age }) => {
 </Button>
     </NavLink>
   </div>
-      </Col>
-    </Row>
-  </div>
-</Card.Body>
+            </Col>
+          </Row>
+        </div>
+      </Card.Body>
 
-
-
-
-<Card.Footer className="dog-info-section">
-{dog.verified !== null && (
+      <Card.Footer className="dog-info-section">
+      {dog.verified !== null && (
 <div className="badge-container">
 <Badge bg="success" className='my-3'> <FontAwesomeIcon icon={faCheckCircle} /> Verified</Badge>
 </div>
@@ -96,12 +107,11 @@ const DogCard = ({ dog, age }) => {
       })}
     </strong>
   </div>
-</Card.Footer>
 
-
-
+      </Card.Footer>
     </Card>
+ </div>
   );
-}
+};
 
 export default DogCard;

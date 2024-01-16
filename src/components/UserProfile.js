@@ -77,7 +77,7 @@ function UserProfile() {
                onProfileUpdated={fetchUser} // Refetch user data after updating
             />
           ) : (
-            <div className="container mt-4">
+            <div className="container mt-4  ml-2 mb-4 mr-2">
             <div className="card">
               <div className="card-body">
                 <h4 className="card-title">User Profile</h4>

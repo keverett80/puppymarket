@@ -145,6 +145,38 @@
     /* Center the content vertically */
 }
 
+.wider-card {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    height: 100% !important;
+    /* Full height */
+    width: 600px;
+    /* Default width for larger screens */
+}
+
+/* Media query for smaller screens */
+@media (max-width: 767px) {
+
+    /* Adjust this breakpoint as needed */
+    .wider-card {
+        width: 100%;
+        /* Full width on smaller screens */
+        /* Additional adjustments for smaller screens can be added here */
+    }
+}
+
+
+.dog-info-section {
+    flex: 1 !important;
+    /* Allows this section to grow and fill available space */
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    /* Useful if you have multiple sections */
+}
+
+
 /* Base card styles */
 .wider-card {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);

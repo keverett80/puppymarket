@@ -1,12 +1,77 @@
-/* Footer.css */
-/* Updated Footer.css */
 .footer {
-    background-color: #e8e8e8;
-    color: #343a40;
+    background-color: #007bff;
+    /* Blue background */
+    color: white !important;
+    /* White text */
     width: 100%;
-
-
+    padding: 20px 0;
 }
+
+.footer-links-row {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+    /* Lighter border for separation */
+    padding-bottom: 20px;
+    margin-bottom: 20px;
+}
+
+.footer-links li a {
+    color: white !important;
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.footer-links li a:hover {
+    text-decoration: underline;
+}
+
+.footer .text-center {
+    font-size: 0.9rem;
+}
+
+.footer .fa-paw,
+.footer .fa-heart {
+    color: white !important;
+}
+
+.footer-category h5 {
+    color: white !important;
+}
+
+.social-icon {
+    color: white;
+    font-size: 1.2rem;
+    /* Adjust icon size as needed */
+}
+
+/* Adjust the right margin for the Instagram icon */
+.social-icon.ml-3 {
+    margin-left: 10px;
+}
+
+.text-right {
+    display: flex;
+    align-items: center;
+    justify-content: end;
+}
+
+.footer-links {
+    list-style-type: none;
+    padding: 0;
+}
+
+.footer-links li a {
+    color: #007bff;
+    /* Adjust the link color as needed */
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.footer-links li a:hover {
+    text-decoration: underline;
+}
+
+
+
 
 
 .footer .fa-paw,

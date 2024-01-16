@@ -8,3 +8,10 @@
 .bg-body-tertiary {
     background-color: #e8e8e8 !important;
 }
+
+
+
+
+.auth-buttons {
+    display: flex !important;
+}

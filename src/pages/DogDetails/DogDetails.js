@@ -331,7 +331,7 @@ const deleteDogPost = async () => {
             <span className="info-label">Nickname:</span> <strong>{dog.name}</strong>
           </div>
           <div className="dog-info-item">
-            <span className="info-label">Price:</span> <strong>${dog.price}</strong>
+            <span className="info-label">Rehoming fee:</span> <strong>${dog.price}</strong>
           </div>
           <div className="dog-info-item">
           <span className="info-label">Age:</span>

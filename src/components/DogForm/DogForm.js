@@ -84,7 +84,7 @@ const [errors, setErrors] = useState({}); // New state for errors
     if (!dog.name.trim()) newErrors.name = "Name is required.";
     if (!dog.breed.trim()) newErrors.breed = "Breed is required.";
     if (!dog.birthDate.trim()) newErrors.birthDate = "Birth Date is required.";
-    if (!dog.price.trim()) newErrors.price = "Price is required.";
+    if (!dog.price.trim()) newErrors.price = "Rehome fee is required.";
     if (!dog.gender.trim()) newErrors.gender = "Gender is required.";
     if (!dog.location.trim()) newErrors.location = "Location is required.";
 
@@ -249,12 +249,12 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
               <Row>
                 <Col md={6}>
                   <Form.Group className="mb-3">
-                    <Form.Label>Price</Form.Label>
+                    <Form.Label>Rehoming fee</Form.Label>
                     <Form.Control
                      className="bold-border"
                       type="number"
-                      name="price"
-                      placeholder="Enter dog price"
+                      name="Rehoming fee"
+                      placeholder="Enter fee"
                       value={dog.price}
                       onChange={handleChange}
                     />
@@ -354,7 +354,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                             dragProps
                         }) => (
                             <div className="upload__image-wrapper">
-                                                      <Button
+                                                      <Button className='m-2'
                               variant={isDragging ? "outline-danger" : "outline-secondary"}
                               onClick={onImageUpload}
                               {...dragProps}
@@ -363,7 +363,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                           </Button>
 
                                 &nbsp;
-                                <Button variant="outline-danger" onClick={onImageRemoveAll}>Remove all images</Button>
+                                <Button className='m-2' variant="outline-danger" onClick={onImageRemoveAll}>Remove all images</Button>
                                                             <div className="d-flex flex-row flex-wrap">
                                 {imageList.map((image, index) => (
                                     <div key={index} className="p-2">
@@ -398,7 +398,7 @@ const contentType = extension === 'jpg' ? 'image/jpeg' : 'image/png';
                 </Form.Group>
 
 
-                <Button variant="outline-primary" type="submit" className="my-3">
+                <Button variant="outline-primary" type="submit" className="m-2">
     Add Dog
 </Button>
             </Form>

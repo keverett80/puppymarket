@@ -17,10 +17,11 @@ import {Amplify, Auth, Hub} from 'aws-amplify';
 import { useNavigate } from 'react-router-dom';
 import Landing from './pages/Landing';
 import DogDetails from './pages/DogDetails/DogDetails';
-
+import ChatWithBully from './pages/Chat/ChatWithBully';
+import CustomJumbotron from '../src/pages/Landing';
 import './App.css'; // Import your CSS file for styling
 import awsconfig from './aws-exports';
-
+import { AnimatePresence } from 'framer-motion';
 Amplify.configure(awsconfig);
 
 function App() {
@@ -71,7 +72,7 @@ function App() {
   };
 
   return (
-    <Router>
+    <Router>    <AnimatePresence>
       <div className="app-container">
         {/* Navigation */}
         <NavbarComponent
@@ -102,13 +103,27 @@ function App() {
                 <UserProfile />
               </ProtectedRoute>
             } />
-            <Route path="/" element={ <Home isAuthenticated={isAuthenticated} filterBreed={filterBreed} filterCity={filterCity} />
-} />
+
+<Route path="/paw-home" element={
+              <ProtectedRoute>
+                 <CustomJumbotron />
+              </ProtectedRoute>
+            } />
+
+
+
+
+{ <Route path="/chat-with-bully" element={  <ProtectedRoute><ChatWithBully /></ProtectedRoute>} /> }
+  {<Route path="/" element={  <CustomJumbotron isAuthenticated={isAuthenticated}  />} />}
+{           <Route path="/view-pups" element={ <Home isAuthenticated={isAuthenticated} filterBreed={filterBreed} filterCity={filterCity} />
+
+} />}
+
           </Routes>
         </Container>
         <> <Footer /></>
       </div>
-
+      </AnimatePresence>
     </Router>
 
   );

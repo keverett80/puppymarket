@@ -1,24 +1,16 @@
-// Footer.js
 import React from 'react';
-import { Container, Row, Col } from 'react-bootstrap';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw, faHeart } from '@fortawesome/free-solid-svg-icons';
-import './Footer.css';
+import { useLocation } from 'react-router-dom';
+import Footer from './MyFooter'; // Adjust the path accordingly
 
-const Footer = () => {
+const LayoutWithFooter = ({ children }) => {
+  const location = useLocation();
+
   return (
-    <footer className="footer">
-      <Container fluid>
-        <Row>
-          <Col className="text-center py-3">
-            <FontAwesomeIcon icon={faPaw} className="mr-2" /><span> </span>
-            &copy; {new Date().getFullYear()} Little Paws Place<span> </span>
-            <FontAwesomeIcon icon={faHeart} className="ml-2" />
-          </Col>
-        </Row>
-      </Container>
-    </footer>
+    <div>
+      {children}
+      {location.pathname !== '/chat-with-bully' && <Footer />}
+    </div>
   );
 };
 
-export default Footer;
+export default LayoutWithFooter;
