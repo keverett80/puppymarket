@@ -8,7 +8,7 @@ const PetfinderCard = ({ animal }) => {
   if (!animal) return null;
 
   // Construct the URL for the image
-  const imageUrl = animal.photos[0].large;
+  const imageUrl = animal.photos?.[0]?.large || 'path_to_default_image_or_empty';
 
   return (
     <Card className="wider-card">
@@ -48,7 +48,7 @@ const PetfinderCard = ({ animal }) => {
                   <span className="info-label">Age:</span> <strong>{animal.age}</strong>
                 </div>
                 <div className="dog-info-item">
-                  <span className="info-label">Location:</span> <strong>{animal.contact.address.city}, {animal.contact.address.state}</strong>
+                <span className="info-label">Location:</span> <strong>{animal.contact.address.city && animal.contact.address.state ? `${animal.contact.address.city}, ${animal.contact.address.state}` : 'Location not available'}</strong>
                 </div>
               </Card.Text>
               <div className="d-flex justify-content-left">

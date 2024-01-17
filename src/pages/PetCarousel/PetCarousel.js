@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
 
-
 function PetCarousel() {
   const [petfinderAnimals, setPetfinderAnimals] = useState([]);
 
@@ -25,13 +24,19 @@ function PetCarousel() {
         <Carousel.Item key={animal.id}>
           <img
             className="d-block w-100"
-            src={animal.primary_photo_cropped.large}
+            src={animal.primary_photo_cropped?.large}
             alt={animal.name}
           />
           <Carousel.Caption>
             <h3>{animal.name}</h3>
-            <p>{animal.breeds.primary} - {animal.age}</p>
-             <a href={animal.url} target="_blank" rel="noopener noreferrer"><button className="btn btn-primary">Learn More</button></a>
+            {/* Check for null before rendering breeds and age */}
+            {animal.breeds?.primary && <p>{animal.breeds.primary} - {animal.age}</p>}
+            {/* Render button only if animal.url is available */}
+            {animal.url && (
+              <a href={animal.url} target="_blank" rel="noopener noreferrer">
+                <button className="btn btn-primary">Learn More</button>
+              </a>
+            )}
           </Carousel.Caption>
         </Carousel.Item>
       ))}

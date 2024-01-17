@@ -12,10 +12,9 @@ import AddDog from './pages/AddDog/AddDog';
 import NavbarComponent from './components/Navbar';
 import UserProfile from './components/UserProfile';
 import ProtectedRoute from './components/ProtectedRoute';
-import { Navbar, Nav, Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap';
 import {Amplify, Auth, Hub} from 'aws-amplify';
-import { useNavigate } from 'react-router-dom';
-import Landing from './pages/Landing';
+
 import DogDetails from './pages/DogDetails/DogDetails';
 import ChatWithBully from './pages/Chat/ChatWithBully';
 import CustomJumbotron from '../src/pages/Landing';
