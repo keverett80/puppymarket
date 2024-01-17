@@ -12,7 +12,7 @@ function ComingSoon() {
 
 
   const calculateTimeLeft = () => {
-    const difference = +new Date("2024-02-01") - +new Date(); // Set your target date here
+    const difference = +new Date("2024-02-05") - +new Date(); // Set your target date here
     let timeLeft = {};
 
     if (difference > 0) {
