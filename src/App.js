@@ -19,6 +19,7 @@ import Landing from './pages/Landing';
 import DogDetails from './pages/DogDetails/DogDetails';
 import ChatWithBully from './pages/Chat/ChatWithBully';
 import CustomJumbotron from '../src/pages/Landing';
+import ComingSoon from './pages/ComingSoon/ComingSoon';
 import './App.css'; // Import your CSS file for styling
 import awsconfig from './aws-exports';
 import { AnimatePresence } from 'framer-motion';
@@ -114,6 +115,7 @@ function App() {
 
 
 { <Route path="/chat-with-bully" element={  <ProtectedRoute><ChatWithBully /></ProtectedRoute>} /> }
+{ <Route path="/coming-soon" element={  <ComingSoon />} /> }
   {<Route path="/" element={  <CustomJumbotron isAuthenticated={isAuthenticated}  />} />}
 {           <Route path="/view-pups" element={ <Home isAuthenticated={isAuthenticated} filterBreed={filterBreed} filterCity={filterCity} />
 

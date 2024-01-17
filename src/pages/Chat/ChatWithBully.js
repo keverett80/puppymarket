@@ -3,6 +3,7 @@ import React, { useState, useRef, useEffect } from 'react';
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap';
 import { motion } from 'framer-motion';
 import bullyAvatar from '../../assets/images/bully-avatar.png';
+import { useNavigate } from 'react-router-dom';
 import OpenAI from 'openai';
 import './ChatWithBully.css';
 
@@ -16,6 +17,12 @@ const openai = new OpenAI({
 
 
 const ChatWithBully = () => {
+
+  const navigate = useNavigate();
+
+  const goBack = () => {
+    navigate(-1); // This will take the user back to the previous page
+  };
   const initialGreeting = { text: "Hi there! I'm your virtual assistant at Little Paws Place. How can I help you with dogs and puppies today?", sender: "ai" };
   const [messages, setMessages] = useState([]); // Start with an empty array
   const [userInput, setUserInput] = useState('');
@@ -102,6 +109,7 @@ displayGreetingAfterDelay();
     <Container className="p-3">
       <Row>
         <Col md={4} className="text-center" style={{ display: 'flex', alignItems: 'start', justifyContent: 'center' }}>
+
         <motion.img
             src={bullyAvatar}
             alt="Bully Avatar"
@@ -113,6 +121,7 @@ displayGreetingAfterDelay();
           />
 
         </Col>
+
         <Col md={8}>
           <Card>
             <Card.Body>

@@ -134,3 +134,21 @@
     /* Slightly enlarges the avatar on hover */
     transition: transform 0.3s ease-in-out;
 }
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    /* Change as per your color scheme */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    /* Darken color on hover */
+}

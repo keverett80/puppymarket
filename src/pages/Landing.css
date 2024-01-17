@@ -91,7 +91,7 @@
 .video-container {
     position: relative;
     width: 100%;
-    max-width: 800px;
+
     /* Adjust based on your preference */
     margin: 0 auto;
 }
@@ -99,7 +99,7 @@
 .video-container::after {
     display: block;
     content: "";
-    padding-top: 56.25%;
+    padding-top: 60%;
     /* 16:9 Aspect Ratio */
 }
 
@@ -123,6 +123,8 @@
 
 
 
+
+
 @media (max-width: 768px) {
 
     .additional-section,
@@ -132,83 +134,62 @@
     }
 }
 
-.site-footer {
-    background-color: transparent;
-    /* Dark background color */
-    color: #fff;
-    /* White text for contrast */
-    text-align: center;
-    /* Center the content */
-    padding: 20px 0;
-    /* Top and bottom padding */
-    margin-top: 30px;
-    /* Margin at the top */
-    font-size: 0.9rem;
-    /* Adjust font size as needed */
-    padding: 20px 0;
-}
-
-.site-footer .container {
-    max-width: 1200px;
-    /* Max width of the content */
-    margin: 0 auto;
-    /* Center the container */
-    padding: 0 15px;
-    /* Padding on the sides */
-}
-
-.site-footer a {
-    color: #00BFFF;
-    /* Adjust link color as needed */
-    text-decoration: none;
-    /* No underline for links */
-}
-
-.site-footer a:hover {
-    text-decoration: underline;
-    /* Underline on hover for links */
-}
-
 .site-footer .carousel-item {
-    height: 600px;
+    height: 500px;
     /* Adjust this value as needed */
 }
 
 .site-footer .carousel-item img {
-    height: 100%;
-    object-fit: cover;
     width: 100%;
+    height: 100%;
+    object-fit: contain;
+    /* Changed to 'contain' to avoid clipping */
     object-position: center;
 }
 
-
-
-.site-footer .carousel {
-    max-width: 100%;
-    /* Ensure it doesn't overflow the footer */
-    margin: auto;
-    /* Center the carousel */
-}
-
-
-/* Responsive adjustments */
 @media (min-width: 768px) {
     .site-footer .carousel-item {
         height: 500px;
-        /* Larger height for wider screens */
+        /* Height for larger screens */
     }
 }
 
 @media (max-width: 767px) {
     .site-footer .carousel-item {
         height: 300px;
-        /* Smaller height for mobile screens */
+        /* Height for mobile screens */
+    }
+}
+
+@media (min-width: 768px) {
+    .site-footer {
+        padding-bottom: 50px;
+        /* More space for larger screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .site-footer {
+        padding-bottom: 30px;
+        /* Less space for smaller screens */
+    }
+}
+
+@media (min-width: 768px) {
+    .first-image-section {
+        padding-bottom: 50px;
+        /* More space for larger screens */
+    }
+}
+
+@media (max-width: 767px) {
+    .first-image-section {
+        padding-bottom: 30px;
+        /* Less space for smaller screens */
     }
 }
 
 
-
-/* Full Height Image Section */
 .image-section {
     background: url('../assets/images/bigPaw.jpg') no-repeat center center;
     background-size: cover;
@@ -217,9 +198,39 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    min-height: 100vh;
+    min-height: 75vh;
     position: relative;
     background-position: center 5%;
+
+}
+
+.first-image-section {
+    background: url('../assets/images/blueFawn.png') no-repeat center center;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    min-height: 40vh;
+    /* Adjust as needed */
+    position: relative;
+    background-position: center top;
+    padding-bottom: 30px;
+    overflow: hidden;
+    /* Optional */
+}
+
+.text-over-image {
+    position: absolute;
+    top: 50%;
+    /* Adjust these values as needed */
+    left: 70%;
+    transform: translate(-50%, -50%);
+    color: white;
+    /* Or any color you prefer */
+    font-size: 2em;
+    /* Adjust the font size as needed */
+    /* Add other styling as needed */
 }
 
 .section-image {

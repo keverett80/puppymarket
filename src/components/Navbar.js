@@ -117,7 +117,7 @@ useEffect(() => {
 
 
     <Container fluid>
-      <Navbar.Brand   className="text-primary font-weight-bold"><FontAwesomeIcon icon={faPaw} className="mr-2" /> Little Paws Place</Navbar.Brand>
+      <Navbar.Brand  href='/' className="text-primary font-weight-bold"><FontAwesomeIcon icon={faPaw} className="mr-2" /> Little Paws Place</Navbar.Brand>
       <Navbar.Toggle aria-controls="navbarScroll" />
       <Navbar.Collapse id="navbarScroll">
 

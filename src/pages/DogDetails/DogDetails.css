@@ -9,3 +9,21 @@
     cursor: pointer !important;
     /* indicates that the image is clickable */
 }
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #757a80 !important;
+    /* Change as per your color scheme */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #292b2c !important;
+    /* Darken color on hover */
+}

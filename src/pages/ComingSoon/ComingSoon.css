@@ -1,0 +1,55 @@
+.coming-soon-container {
+    text-align: center;
+    padding: 50px;
+    background: #f2f2f2;
+    /* Light grey background */
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    /* Subtle shadow for depth */
+    margin: 20px;
+    font-family: 'Arial', sans-serif;
+    /* Use your preferred font */
+}
+
+.coming-soon-container h1 {
+    color: #333;
+    /* Dark text for contrast */
+    font-size: 2.5em;
+}
+
+.coming-soon-container p {
+    color: #666;
+    /* Lighter text */
+    font-size: 1.2em;
+}
+
+.countdown {
+    font-size: 1.5em;
+    margin-top: 20px;
+}
+
+.countdown span {
+    margin: 0 10px;
+    display: inline-block;
+    color: #444;
+}
+
+.back-button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 1em;
+    color: #fff;
+    background-color: #007bff;
+    /* Change as per your color scheme */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.back-button:hover {
+    background-color: #0056b3;
+    /* Darken color on hover */
+}
+
+/* Continue with your existing styles... */

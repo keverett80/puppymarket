@@ -18,6 +18,11 @@ import { Auth } from 'aws-amplify';
 import './DogDetails.css'
 
 function DogDetails() {
+
+
+
+
+
   const navigate = useNavigate();
   const [dog, setDog] = useState(null);
   const [imageUrls, setImageUrls] = useState([]);
@@ -27,6 +32,10 @@ function DogDetails() {
   const [contactModalVisible, setContactModalVisible] = useState(false);
   const [contactDetails, setContactDetails] = useState({ name: '', phone: '', email: '', message: '' });
   const [userEmail, setUserEmail] = useState('');
+
+  const goBack = () => {
+    navigate(-1); // This will take the user back to the previous page
+  };
 
 useEffect(() => {
   const fetchUserEmail = async () => {
@@ -294,7 +303,7 @@ const deleteDogPost = async () => {
   </Modal.Footer>
 </Modal>
 
-    <div className="container mt-4">
+    <div className="container m-4">
        <Card className="wider-card">
 
 <Card.Header className="dog-info-section">
@@ -374,13 +383,16 @@ const deleteDogPost = async () => {
     })}
   </strong>
 </div>
-{userEmail !== dog.verified && (<Button onClick={() => {
+{userEmail !== dog.verified && (<Button className='m-4' onClick={() => {
   if (dog.verified) {
     setContactModalVisible(true);
   } else {
     alert("The owner's email is not verified. You can't contact them at the moment.");
   }
 }}>Contact</Button>)}
+<button className="back-button m-4" onClick={goBack}>
+  <i className="fa fa-arrow-left"></i> Go Back
+</button>
 
 {userEmail === dog.verified && (
   <Button variant="danger" onClick={deleteDogPost} className="my-3">
