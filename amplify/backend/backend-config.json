@@ -1,4 +1,10 @@
 {
+  "analytics": {
+    "puppymarketplace": {
+      "providerPlugin": "awscloudformation",
+      "service": "Pinpoint"
+    }
+  },
   "api": {
     "puppymarketplace": {
       "dependsOn": [

@@ -1,12 +1,13 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { API, Auth } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import DogCard from '../../components/DogCard/DogCard';
 import PetfinderCard from '../../components/DogCard/PetfinderCard'; // Make sure the path is correct!
 import { Container, Row, Col, Button } from 'react-bootstrap';
 import * as queries from '../../graphql/queries';
-import CustomJumbotron from '../Landing';
+import useScrollToTop from '../../helpers/useScrollToTop';
 import './Home.css';
+import loadingImage from '../../assets/images/loading.gif'
 
 function Home({ isAuthenticated, filterBreed, filterCity, handleLogin }) {
     const [dogs, setDogs] = useState([]);
@@ -15,12 +16,13 @@ function Home({ isAuthenticated, filterBreed, filterCity, handleLogin }) {
     const [prevTokens, setPrevTokens] = useState([]);
     const [currentPage, setCurrentPage] = useState(1); // For frontend pagination
     const itemsPerPage = 10;
-
-
+    const [isLoading, setIsLoading] = useState(false);
+    useScrollToTop();
 
 
     useEffect(() => {
         const fetchPetfinderAnimals = async () => {
+          setIsLoading(true)
             try {
                 // Replace with your Lambda function URL
                 const response = await fetch('https://izaaugmn66.execute-api.us-east-1.amazonaws.com/default/getPetfinderToken');
@@ -34,11 +36,22 @@ function Home({ isAuthenticated, filterBreed, filterCity, handleLogin }) {
             } catch (err) {
                 console.error('Error fetching Petfinder data:', err);
                 // Handle errors as appropriate
-            }
+            }finally {
+              setIsLoading(false);
+          }
         };
 
         fetchPetfinderAnimals();
     }, []);
+
+    const topRef = useRef(null);
+
+    useEffect(() => {
+      if (topRef.current) {
+        topRef.current.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, [currentPage]);
+
 
     const combinedDogs = [...dogs, ...petfinderAnimals];
 
@@ -86,6 +99,9 @@ const generatePageNumbers = () => {
 };
 const pageNumbers = generatePageNumbers();
 
+
+
+
 const handleFrontendNextPage = () => {
   if (currentPage < totalPages) {
       setCurrentPage(currentPage + 1);
@@ -94,6 +110,7 @@ const handleFrontendNextPage = () => {
 };
 
 const handleFrontendPrevPage = () => {
+
   if (currentPage > 1) {
       setCurrentPage(currentPage - 1);
       window.scrollTo(0, 0);
@@ -180,10 +197,16 @@ useEffect(() => {
 
 
 return (
-  <div className='dogBg'>
+  <div className='dogBg' ref={topRef}>
        <Container>
 
+       {isLoading ? (
+                <div className="d-flex justify-content-center align-items-center" style={{ height: '100vh' }}>
+                <img src={loadingImage} alt="Loading..." />
+              </div>
 
+      ) : (
+        <>
 {dogsToDisplay.length === 0 ? (
     <div>No dogs match the selected filters.</div>
 ) : (
@@ -244,7 +267,8 @@ return (
     </Col>
 </Row>
 
-
+</>
+      )}
   </Container>
 
   </div>

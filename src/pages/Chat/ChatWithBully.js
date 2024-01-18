@@ -6,6 +6,7 @@ import bullyAvatar from '../../assets/images/bully-avatar.png';
 import { useNavigate } from 'react-router-dom';
 import OpenAI from 'openai';
 import './ChatWithBully.css';
+import useScrollToTop from '../../helpers/useScrollToTop';
 
 // OpenAI Configuration
 
@@ -17,7 +18,7 @@ const openai = new OpenAI({
 
 
 const ChatWithBully = () => {
-
+  useScrollToTop();
   const navigate = useNavigate();
 
   const goBack = () => {

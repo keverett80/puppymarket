@@ -6,6 +6,7 @@ import { faVenus, faMars, faCheckCircle, faPaw } from '@fortawesome/free-solid-s
 import './DogCard.css';
 
 
+
 const DogCard = ({ dog, age }) => {
 
   const [isLoading, setIsLoading] = useState(false);

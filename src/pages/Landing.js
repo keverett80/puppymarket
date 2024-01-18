@@ -5,6 +5,7 @@ import { motion, useAnimation } from 'framer-motion';
 import { useInView } from 'react-intersection-observer';
 import './Landing.css';
 import PetCarousel from './PetCarousel/PetCarousel';
+import useScrollToTop from '../helpers/useScrollToTop';
 
 
 
@@ -13,7 +14,7 @@ function CustomJumbotron() {
   let navigate = useNavigate();
   const controls = useAnimation();
 
-
+  useScrollToTop();
 
 
 

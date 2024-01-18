@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import './ComingSoon.css'; // Make sure to import the CSS file
 import { useNavigate } from 'react-router-dom';
+import useScrollToTop from '../../helpers/useScrollToTop';
 
 function ComingSoon() {
-
+  useScrollToTop();
   const navigate = useNavigate();
 
   const goBack = () => {

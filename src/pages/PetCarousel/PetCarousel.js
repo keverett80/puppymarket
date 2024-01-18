@@ -1,24 +1,45 @@
 import React, { useEffect, useState } from 'react';
 import Carousel from 'react-bootstrap/Carousel';
+import loadingImage from '../../assets/images/loading.gif'
 
 function PetCarousel() {
   const [petfinderAnimals, setPetfinderAnimals] = useState([]);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     fetchPetfinderAnimals();
   }, []);
 
   const fetchPetfinderAnimals = async () => {
+
+    setIsLoading(true);
     try {
       const response = await fetch('https://izaaugmn66.execute-api.us-east-1.amazonaws.com/default/getPetfinderToken');
+      console.log(response)
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
       const data = await response.json();
+      if (!Array.isArray(data)) {
+        throw new Error('Data is not an array');
+      }
       setPetfinderAnimals(data);
     } catch (err) {
       console.error('Error fetching Petfinder data:', err);
+      setPetfinderAnimals([]); // Reset to empty array on error
+    } finally{
+      setIsLoading(false);
     }
   };
 
+
   return (
+    <div>
+    {isLoading ? (
+         <div className="d-flex justify-content-center align-items-center" style={{ height: '70vh' }}>
+         <img src={loadingImage} alt="Loading..." />
+       </div>
+    ) : (
     <Carousel>
       {petfinderAnimals.map((animal) => (
         <Carousel.Item key={animal.id}>
@@ -41,6 +62,8 @@ function PetCarousel() {
         </Carousel.Item>
       ))}
     </Carousel>
+     )}
+     </div>
   );
 }
 

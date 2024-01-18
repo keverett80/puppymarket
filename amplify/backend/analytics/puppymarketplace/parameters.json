@@ -1,0 +1,21 @@
+{
+    "appName": "puppymarketplace",
+    "roleName": "pinpointLambdaRole437a40eb",
+    "cloudformationPolicyName": "cloudformationPolicy437a40eb",
+    "cloudWatchPolicyName": "cloudWatchPolicy437a40eb",
+    "pinpointPolicyName": "pinpointPolicy437a40eb",
+    "authPolicyName": "pinpoint_amplify_437a40eb",
+    "unauthPolicyName": "pinpoint_amplify_437a40eb",
+    "authRoleName": {
+        "Ref": "AuthRoleName"
+    },
+    "unauthRoleName": {
+        "Ref": "UnauthRoleName"
+    },
+    "authRoleArn": {
+        "Fn::GetAtt": [
+            "AuthRole",
+            "Arn"
+        ]
+    }
+}

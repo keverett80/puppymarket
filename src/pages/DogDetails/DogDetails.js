@@ -16,9 +16,10 @@ import { faVenus, faMars } from '@fortawesome/free-solid-svg-icons';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import { Auth } from 'aws-amplify';
 import './DogDetails.css'
+import useScrollToTop from '../../helpers/useScrollToTop';
 
 function DogDetails() {
-
+  useScrollToTop();
 
 
 

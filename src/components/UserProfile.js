@@ -6,6 +6,7 @@ import UserProfileEditForm from './UserProfileEditForm';
 import { API, graphqlOperation } from 'aws-amplify';
 import { Link } from 'react-router-dom';
 import { ListGroup } from 'react-bootstrap';
+import useScrollToTop from '../helpers/useScrollToTop';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
@@ -31,6 +32,8 @@ const fetchUserPosts = async (ownerEmail) => {
 
 
 function UserProfile() {
+
+  useScrollToTop();
   const [user, setUser] = useState(null);
   const [userPosts, setUserPosts] = useState([]);
   const [isEditing, setIsEditing] = useState(false);

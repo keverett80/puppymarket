@@ -11,11 +11,13 @@ import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPaw } from '@fortawesome/free-solid-svg-icons';
 import { useLocation } from 'react-router-dom';
+import useScrollToTop from '../helpers/useScrollToTop';
 
 
 
 function NavbarComponent({ isAuthenticated, setIsAuthenticated, onFilterChange }) {
   const navigate = useNavigate();
+  useScrollToTop();
   const location = useLocation(); // Get the current location
   const [loginClicked, setLoginClicked] = useState(false);
   const [filterBreed, setFilterBreed] = useState("");
