@@ -14,7 +14,7 @@ function CustomJumbotron() {
   let navigate = useNavigate();
   const controls = useAnimation();
 
-  useScrollToTop();
+
 
 
 
@@ -30,6 +30,7 @@ function CustomJumbotron() {
 
 
   const handleTileClick = (path) => {
+
     navigate(path);
   };
   const [imageSectionRef, imageSectionInView] = useInView({
@@ -88,23 +89,25 @@ function CustomJumbotron() {
           <div class="text-over-image">Little Paws Place!</div>
           </div>
 
-      <Row>
+          <Row>
         {tiles.map((tile, index) => (
           <Col xs={12} md={6} lg={4} key={index}>
-             <motion.div variants={tileVariants}>
-            <Card className="tile" onClick={() => handleTileClick(tile.path)}
-                  style={{ backgroundColor: tile.color, color: tile.color === '#ffc107' ? 'black' : 'white' }}>
-              <Card.Body>
-                <div className="icon-placeholder">
-                  <i className={tile.icon}></i>
-                </div>
-                <Card.Title>{tile.title}</Card.Title>
-                <Card.Text>
-                  {tile.description}
-                </Card.Text>
-              </Card.Body>
-            </Card>
-            </motion.div>
+            <a href={tile.path} className="tile-link">
+              <Card
+                className="tile"
+                style={{ backgroundColor: tile.color, color: tile.color === '#ffc107' ? 'black' : 'white' }}
+              >
+                <Card.Body>
+                  <div className="icon-placeholder">
+                    <i className={tile.icon}></i>
+                  </div>
+                  <Card.Title>{tile.title}</Card.Title>
+                  <Card.Text>
+                    {tile.description}
+                  </Card.Text>
+                </Card.Body>
+              </Card>
+            </a>
           </Col>
         ))}
       </Row>

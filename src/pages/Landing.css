@@ -301,3 +301,19 @@
         padding: 0;
     }
 }
+
+.tile-link {
+    text-decoration: none;
+    /* Removes the underline */
+    color: inherit;
+    /* Inherits the color from the parent element */
+}
+
+/* To maintain hover effects, if desired */
+.tile-link:hover,
+.tile-link:active {
+    text-decoration: none;
+    /* Keeps the underline removed on hover */
+    color: inherit;
+    /* Maintains the same color on hover */
+}
