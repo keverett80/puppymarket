@@ -226,7 +226,7 @@ const imageUrls = await Promise.all(
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <TextField label="Name" name="name" value={dog.name} onChange={handleChange} error={!!errors.name} helperText={errors.name} fullWidth />
               <TextField label="Breed/Type" name="breed" value={dog.breed} onChange={handleChange} error={!!errors.breed} helperText={errors.breed} fullWidth />
-              <TextField
+<TextField
   type="date"
   label="Birth Date"
   name="birthDate"
@@ -237,10 +237,18 @@ const imageUrls = await Promise.all(
   fullWidth
   InputLabelProps={{ shrink: true }}
   inputProps={{
-    max: new Date().toISOString().split('T')[0], // today's date as max
-    pattern: "\\d{4}-\\d{2}-\\d{2}" // enforce 4-digit year format
+    max: new Date().toISOString().split('T')[0],
+    pattern: "\\d{4}-\\d{2}-\\d{2}"
+  }}
+  sx={{
+    '& input': {
+      height: '1.5em',         // normalize height
+      padding: '16.5px 14px',  // match default MUI padding
+      boxSizing: 'border-box'
+    }
   }}
 />
+
 
               <TextField type="number" label="Rehoming Fee" name="price" value={dog.price} onChange={handleChange} error={!!errors.price} helperText={errors.price} fullWidth />
               <TextField select label="Gender" name="gender" value={dog.gender} onChange={handleChange} error={!!errors.gender} helperText={errors.gender} fullWidth>
@@ -261,7 +269,7 @@ const imageUrls = await Promise.all(
   onChange={handleImagesChange}
   maxNumber={5}
   dataURLKey="data_url"
-  acceptType={["jpg", "png"]}
+  acceptType={["jpg", "jpeg", "png", "heic", "webp"]}
   onError={({ maxNumber }) => {
     if (maxNumber) {
       setImageError('You can upload a maximum of 5 images.');
