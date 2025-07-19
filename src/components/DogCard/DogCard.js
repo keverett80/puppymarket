@@ -1,117 +1,148 @@
 import React, { useEffect, useState } from 'react';
-import { Card, Button, Row, Col, Badge } from 'react-bootstrap';
-import { NavLink } from 'react-router-dom';
+import {
+  Card,
+  CardContent,
+  Typography,
+  CardMedia,
+  Grid,
+  Box,
+  Button,
+  Chip
+} from '@mui/material';
+import { Storage } from 'aws-amplify';
+import { Link } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faVenus, faMars, faCheckCircle, faPaw } from '@fortawesome/free-solid-svg-icons';
-import './DogCard.css';
+import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
-
-
-const DogCard = ({ dog, age }) => {
-
-  const [isLoading, setIsLoading] = useState(false);
-  const [error, setError] = useState(null);
+const DogCard = ({ dog, showManage = false, onEdit, onDelete }) => {
+  const [imageUrl, setImageUrl] = useState('/fallback-dog.png');
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    const loadImage = async () => {
+      const key = Array.isArray(dog?.imageUrls) && dog.imageUrls.length > 0
+        ? dog.imageUrls[0]
+        : null;
 
-      setIsLoading(true);
-      try {
-
-        setIsLoading(false);
-      } catch (err) {
-        setError(err);
-        setIsLoading(false);
+      if (!key) {
+        setLoading(false);
+        return;
       }
 
+      try {
+        const url = await Storage.get(key, { level: 'public' });
 
+        const img = new Image();
+        img.onload = () => {
+          setImageUrl(url);
+          setLoading(false);
+        };
+        img.onerror = () => {
+          console.warn("Image exists in S3 but failed to load:", url);
+          setImageUrl('/fallback-dog.png');
+          setLoading(false);
+        };
+        img.src = url;
+      } catch (err) {
+        console.warn('Storage.get() failed:', err);
+        setImageUrl('/fallback-dog.png');
+        setLoading(false);
+      }
+    };
 
-  }, []);
+    loadImage();
+  }, [dog?.imageUrls]);
 
-  const imageUrl = dog.imageUrls?.[0] ? `https://puppymarketplaces155206-dev.s3.amazonaws.com/public/${dog.imageUrls[0]}` : 'defaultImageUrl';
+  if (!dog) return null;
 
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>Error: {error.message}</div>;
   return (
-    <div>
-    <Card className="wider-card">
-      <Card.Header className="dog-info-section">
-      <Row>
-      <Col className="gender-col">
-  {dog.gender === 'MALE' ? (
-    console.log(dog.gender),
-    <FontAwesomeIcon icon={faMars} className="mr-2 blue-icon" /> // Male icon with blue color
-  ) : (
-    <FontAwesomeIcon icon={faVenus} className="mr-2 pink-icon" /> // Female icon with pink color
-  )}{" "}
-  {dog.gender}
-</Col>
-<Col className="centered-content">
-      <Card.Title className="dog-name">
-        <strong className="breed-label"><FontAwesomeIcon icon={faPaw} className="mr-2" /> Breed: </strong> {dog.breed}
-      </Card.Title>
-    </Col>
 
+      <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}
+>
 
-      </Row>
-      </Card.Header>
+      <Link to={`/dogs/${dog.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
+        {loading ? (
+          <Box sx={{
+            height: 200,
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#f5f5f5'
+          }}>
+            <Typography color="text.secondary">Loading...</Typography>
+          </Box>
+        ) : (
+          <CardMedia
+            component="img"
+            image={imageUrl}
+            alt={dog.name}
+            sx={{
+              height: 200,
+              width: '100%',
+              objectFit: 'cover',
+              borderTopLeftRadius: 8,
+              borderTopRightRadius: 8
+            }}
+          />
+        )}
+      </Link>
 
-      <Card.Body className="dog-info-section">
-        <div className="dog-info-section">
-          <Row className="dog-card">
-            <Col md={{ span: 5, order: 2 }}>
-              <Card.Img src={imageUrl} className="dog-image" alt={dog.name} />
-            </Col>
-            <Col md={{ span: 7, order: 1 }}>
-            <Card.Text className="dog-info">
-          <div className="dog-info-item">
-            <span className="info-label">Nickname:</span> <strong>{dog.name}</strong>
-          </div>
-          <div className="dog-info-item">
-            <span className="info-label">Rehoming fee:</span> <strong>${dog.price}</strong>
-          </div>
-          <div className="dog-info-item">
-            <span className="info-label">Age:</span> <strong>{age}</strong>
-          </div>
-          <div className="dog-info-item">
-            <span className="info-label">Location:</span> <strong>{dog.location}</strong>
-          </div>
-        </Card.Text>
-        <div className="d-flex justify-content-left">
-    <NavLink to={`/dogs/${dog.id}`}>
-    <Button variant="primary" className="rounded-circle">
-  View More
-</Button>
-    </NavLink>
-  </div>
-            </Col>
-          </Row>
-        </div>
-      </Card.Body>
+      <CardContent sx={{ flexGrow: 1 }}>
+        <Typography variant="h6" noWrap>
+          {dog.name}
+        </Typography>
+        <Typography variant="body2" color="text.secondary">
+          Breed: {dog.breed || '—'}<br />
+          Price: {dog.price ? `$${dog.price}` : '—'}<br />
+          Location: {dog.location || '—'}
+        </Typography>
 
-      <Card.Footer className="dog-info-section">
-      {dog.verified !== null && (
-<div className="badge-container">
-<Badge bg="success" className='my-3'> <FontAwesomeIcon icon={faCheckCircle} /> Verified</Badge>
-</div>
-  )}
-  <div className='my-3'>
-  <em>{dog.description}</em>
-  </div>
+        <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">
+          <Box>
+            {dog.gender && <Chip size="small" label={dog.gender} color="info" sx={{ mr: 1 }} />}
+            {dog.dateListed && (
+              <Chip
+                size="small"
+                label={new Date(dog.dateListed).toLocaleDateString()}
+                color="default"
+              />
+            )}
+          </Box>
 
-  <div className="d-flex justify-content-left my-3">
-    Date Listed:&nbsp;<strong>
-      {new Date(dog.dateListed).toLocaleDateString('en-US', {
-        year: 'numeric',
-        month: 'long',
-        day: 'numeric'
-      })}
-    </strong>
-  </div>
+          {showManage && (
+            <Box display="flex" gap={1}>
+              <Button
+                size="small"
+                color="warning"
+                variant="contained"
+                onClick={() => onEdit?.(dog)}
+              >
+                <FontAwesomeIcon icon={faPen} />
+              </Button>
+              <Button
+                size="small"
+                color="error"
+                variant="contained"
+                onClick={() => onDelete?.(dog)}
+              >
+                <FontAwesomeIcon icon={faTrash} />
+              </Button>
+            </Box>
+          )}
+        </Box>
+      </CardContent>
+           <Box textAlign="center" pb={2} mt="auto">
+              <Button
+                variant="outlined"
+                size="small"
+                href={`/dogs/${dog.id}`}
 
-      </Card.Footer>
+                rel="noopener noreferrer"
+              >
+                View More
+              </Button>
+            </Box>
     </Card>
- </div>
   );
 };
 

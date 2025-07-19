@@ -15,3 +15,83 @@
 .auth-buttons {
     display: flex !important;
 }
+
+.nav-icon-link {
+    color: #007bff !important;
+    font-size: 1.3rem;
+    display: flex;
+    align-items: center;
+    padding: 8px;
+    transition: transform 0.2s;
+}
+
+.nav-icon-link:hover {
+    transform: scale(1.1);
+    color: #0056b3 !important;
+}
+
+.nav-icon-row {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    padding: 10px 0;
+    border-bottom: 1px solid #eaeaea;
+}
+
+.nav-icon-btn {
+    background: #f8f9fa;
+    border: none;
+    border-radius: 12px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    padding: 10px 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.nav-icon-btn:hover {
+    background-color: #e2e6ea;
+    transform: scale(1.05);
+}
+
+.btn-edit {
+    background-color: #6c757d !important;
+    color: white;
+}
+
+.btn-logout {
+    background-color: #dc3545 !important;
+    color: white;
+}
+
+.btn-edit:hover {
+    background-color: #5a6268 !important;
+}
+
+.btn-logout:hover {
+    background-color: #c82333 !important;
+}
+
+.profile-action-buttons {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: 10px;
+    width: 100%;
+}
+
+@media (max-width: 768px) {
+    .profile-action-buttons {
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        margin-top: 12px;
+    }
+
+    .profile-action-buttons .btn {
+        width: 80%;
+        max-width: 240px;
+        text-align: center;
+    }
+}

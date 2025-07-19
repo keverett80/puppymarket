@@ -1,319 +1,102 @@
-.card-body {
-    background: transparent !important;
+.landing-wrapper {
+    font-family: 'Poppins', sans-serif;
+    background-color: #fdfdfd;
 }
 
-.tile-container {
-    padding: 20px;
+.tile-section .row {
+    justify-content: center;
+    text-align: center;
 }
 
 .tile {
-    cursor: pointer !important;
-    margin-bottom: 20px !important;
-    transition: transform 0.3s ease !important;
-    text-align: center !important;
-    border: none !important;
-    /* Remove default border */
-    border-radius: 15px !important;
-    /* Rounded corners */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-    /* Subtle shadow */
-    color: white !important;
-    /* Default text color for better contrast */
-
+    border-radius: 16px;
+    transition: transform 0.3s ease;
 }
 
 .tile:hover {
     transform: scale(1.05);
 }
 
-.icon-placeholder {
-    font-size: 36px;
-    /* Adjust icon size */
-    margin-bottom: 15px;
-}
 
+.hero-section {
+    background-color: black !important;
 
-@media (max-width: 768px) {
-    .tile {
-        margin-left: 10px;
-        margin-right: 10px;
-    }
-}
-
-.page-enter {
-    opacity: 0;
-}
-
-.page-enter-active {
-    opacity: 1;
-    transition: opacity 500ms;
-}
-
-.page-exit {
-    opacity: 1;
-}
-
-.page-exit-active {
-    opacity: 0;
-    transition: opacity 500ms;
-}
-
-/* Full Height Section */
-.full-height-section {
-    min-height: 100vh;
-    /* 100% of the viewport height */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-/* Styles for the section after tiles */
-.additional-section {
-    padding: 20px;
-    background-color: #f8f9fa;
-    /* Example background color */
-    text-align: center;
-}
-
-/* Styles for another additional section */
-/* Full Height Section with Video */
-.another-section {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    padding: 20px;
-    text-align: center;
-    /* Additional styling as needed */
-}
-
-/* Responsive Video Container */
-.video-container {
-    position: relative;
-    width: 100%;
-
-    /* Adjust based on your preference */
-    margin: 0 auto;
-}
-
-.video-container::after {
-    display: block;
-    content: "";
-    padding-top: 60%;
-    /* 16:9 Aspect Ratio */
-}
-
-.video-container iframe {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-}
-
-@media (max-width: 768px) {
-
-    /* Adjustments for mobile view */
-    .video-container {
-        width: 90%;
-    }
-}
-
-
-
-
-
-
-
-@media (max-width: 768px) {
-
-    .additional-section,
-    .another-section,
-    .site-footer {
-        padding: 10px;
-    }
-}
-
-.site-footer .carousel-item {
-    height: 500px;
-    /* Adjust this value as needed */
-}
-
-.site-footer .carousel-item img {
-    width: 100%;
-    height: 100%;
-    object-fit: contain;
-    /* Changed to 'contain' to avoid clipping */
-    object-position: center;
-}
-
-@media (min-width: 768px) {
-    .site-footer .carousel-item {
-        height: 500px;
-        /* Height for larger screens */
-    }
-}
-
-@media (max-width: 767px) {
-    .site-footer .carousel-item {
-        height: 300px;
-        /* Height for mobile screens */
-    }
-}
-
-@media (min-width: 768px) {
-    .site-footer {
-        padding-bottom: 50px;
-        /* More space for larger screens */
-    }
-}
-
-@media (max-width: 767px) {
-    .site-footer {
-        padding-bottom: 30px;
-        /* Less space for smaller screens */
-    }
-}
-
-@media (min-width: 768px) {
-    .first-image-section {
-        padding-bottom: 50px;
-        /* More space for larger screens */
-    }
-}
-
-@media (max-width: 767px) {
-    .first-image-section {
-        padding-bottom: 30px;
-        /* Less space for smaller screens */
-    }
-}
-
-
-.image-section {
-    background: url('../assets/images/bigPaw.jpg') no-repeat center center;
     background-size: cover;
-    /* Cover the entire section */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 75vh;
+    min-height: 90vh;
+    padding: 60px 20px;
     position: relative;
-    background-position: center 5%;
-
-}
-
-.first-image-section {
-    background: url('../assets/images/blueFawn.png') no-repeat center center;
-    background-size: cover;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    min-height: 40vh;
-    /* Adjust as needed */
-    position: relative;
-    background-position: center top;
-    padding-bottom: 30px;
-    overflow: hidden;
-    /* Optional */
-}
-
-.text-over-image {
-    position: absolute;
-    top: 50%;
-    /* Adjust these values as needed */
-    left: 70%;
-    transform: translate(-50%, -50%);
     color: white;
-    /* Or any color you prefer */
-    font-size: 2em;
-    /* Adjust the font size as needed */
-    /* Add other styling as needed */
 }
 
-.section-image {
-    max-width: 100%;
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.4);
+    z-index: 1;
+}
+
+.hero-section>.container {
+    position: relative;
+    z-index: 2;
+}
+
+.featured-carousel-section {
+    background-color: #fff;
+}
+
+footer a {
+    color: #6c757d;
+    margin: 0 8px;
+    text-decoration: none;
+}
+
+footer a:hover {
+    text-decoration: underline;
+}
+
+.top-loader-wrapper {
+
+    justify-content: center;
+    align-items: center;
+    background-color: black !important;
+    /* ✅ Transparent background */
+
+}
+
+.top-loader-image {
+    width: 180px;
+    /* adjust size */
     height: auto;
-    border-radius: 10px;
-    /* Optional: for rounded corners */
+    opacity: 0.8;
+    background-color: black !important;
+    /* ✅ Transparent background */
 }
 
-.content {
-    color: #ffffff;
-    position: absolute;
-    /* Keep the content positioned over the image */
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 100%;
-    /* Ensure it spans the width of the section */
-    /* Add more styling as needed */
+.hero-animation-wrapper {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: -20px;
+    margin-bottom: 30px;
 }
 
-/* Styling buttons */
-.buttons {
-    margin-top: 20px;
+.hero-animation {
+    width: 200px;
+    height: auto;
+    max-width: 90%;
+    animation: bounceIn 1s ease-in-out;
 }
 
-.btn {
-    margin: 0 10px;
-    padding: 10px 20px;
-    border: none;
-    border-radius: 5px;
-    color: white;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.btn-primary {
-    background-color: #007bff;
-}
-
-.btn-primary:hover {
-    background-color: darken(#007bff, 10%);
-}
-
-.btn-secondary {
-    background-color: #6c757d;
-}
-
-.btn-secondary:hover {
-    background-color: darken(#6c757d, 10%);
-}
-
-@media (max-width: 768px) {
-    .content {
-        position: static;
-        transform: none;
-        text-align: center;
-        padding: 20px;
+/* Optional: subtle motion entrance */
+@keyframes bounceIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-30px);
     }
 
-    .section-image {
-        width: 100%;
-        height: auto;
+    100% {
+        opacity: 1;
+        transform: translateY(0);
     }
-
-    .image-section {
-        position: relative;
-        padding: 0;
-    }
-}
-
-.tile-link {
-    text-decoration: none;
-    /* Removes the underline */
-    color: inherit;
-    /* Inherits the color from the parent element */
-}
-
-/* To maintain hover effects, if desired */
-.tile-link:hover,
-.tile-link:active {
-    text-decoration: none;
-    /* Keeps the underline removed on hover */
-    color: inherit;
-    /* Maintains the same color on hover */
 }

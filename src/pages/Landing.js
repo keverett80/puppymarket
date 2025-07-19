@@ -1,160 +1,113 @@
 import React from 'react';
+import { Button, Container, Row, Col, Card } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-import { Card, Row, Col } from 'react-bootstrap';
-import { motion, useAnimation } from 'framer-motion';
-import { useInView } from 'react-intersection-observer';
 import './Landing.css';
-import PetCarousel from './PetCarousel/PetCarousel';
-import useScrollToTop from '../helpers/useScrollToTop';
+import runningAnimals from '../assets/images/loading1.gif'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import {
+  faPaw,
+  faCirclePlus,
+  faHeartCircleCheck
+} from '@fortawesome/free-solid-svg-icons';
+
+
+export default function LandingPage() {
+  const navigate = useNavigate();
+
+const tiles = [
+  {
+    title: "Browse Listings",
+    icon: faPaw,
+    path: "/view-pups",
+    color: "#4e73df",
+    textColor: "white",
+    description: "Find your next companion — dog, cat, or critter.",
+  },
+  {
+    title: "Create a New Listing",
+    icon: faCirclePlus,
+    path: "/add-dog",
+    color: "#1cc88a",
+    textColor: "white",
+    description: "Give a pet a fresh start and a loving home.",
+  },
+  {
+    title: "Find Your Match",
+    icon: faHeartCircleCheck,
+    path: "/pet-match",
+    color: "#f39c12",
+    textColor: "#111",
+    description: "Take our quiz — discover your perfect pet match.",
+  }
+];
 
 
 
-
-function CustomJumbotron() {
-  let navigate = useNavigate();
-  const controls = useAnimation();
-
-
-
-
-
-  const tiles = [
-
-    { title: "Paw Best Bites", icon: "fas fa-bone", path: "/coming-soon", color: "#28a745", description: "Feeding Every Paw with Care!"  },
-    { title: "Pawsitive Training", icon: "fas fa-paw", path: "/coming-soon", color: "#dc3545", description: "Unleashing Potential, One Paw at a Time!"  },
-    { title: "Chat with Paw", icon: "fas fa-comments", path: "/chat-with-bully", color: "#17a2b8", description: "Barking Up the Right Conversation!"  },
-    { title: "Pawsitive Wellness", icon: "fas fa-heartbeat", path: "/coming-soon", color: "#301934", description: "Nurturing Health, One Tail Wag at a Time!"  },
-    { title: "Paw Pals Community", icon: "fas fa-calendar-alt", path: "/coming-soon", color: "#007bff", description: "Together, Every Dog Has Its Day!"  },
-    {  title: "Paw Puppy Peek", icon: "fas fa-dog", path: "/view-pups", color: "#6c757d", description: "Discover Your Forever Friend!" }
-  ];
-
-
-  const handleTileClick = (path) => {
-
-    navigate(path);
-  };
-  const [imageSectionRef, imageSectionInView] = useInView({
-
-    threshold: 0.1
-  });
-  const [videoSectionRef, videoSectionInView] = useInView({
-
-    threshold: 0.1
-  });
-  const [carouselSectionRef, carouselSectionInView] = useInView({
-
-    threshold: 0.1
-  });
-  const [containerRef, containerInView] = useInView({
-    threshold: 0.1, // Adjust as needed
-    // triggerOnce removed
-  });
-
-  const containerVariants = {
-    hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.1,
-      }
-    },
-    exit: { opacity: 0, transition: { duration: 2 } }
-  };
-
-  const sectionVariants = {
-    hidden: { opacity: 0, y: 40 },
-    visible: {
-      opacity: 2,
-      y: 0,
-      transition: { duration: 2 } // Increase duration to 1 second
-    }
-  };
-
-  const tileVariants = {
-    hidden: { opacity: 0 },
-    visible: { opacity: 1 }
-  };
 
   return (
-    <div>
-<motion.div
-      ref={containerRef}
-      className="tile-container"
-      variants={containerVariants}
-      initial="hidden"
-      animate={containerInView ? "visible" : "hidden"}
-      exit="exit"
-    >
-          <div className="first-image-section mb-5">
-          <div class="text-over-image">Little Paws Place!</div>
+    <div className="landing-wrapper">
+
+
+      {/* Hero Section */}
+      <section className="hero-section text-blue text-center d-flex align-items-center justify-content-center">
+        <Container>
+  <div className="hero-animation-wrapper">
+  <img src={runningAnimals} alt="Running cat and dog animation" className="hero-animation" />
+</div>
+
+          <h1 className="display-4 fw-bold">Find a Home. Give a Home.</h1>
+          <p className="lead">Helping pets find their forever families with one simple step.</p>
+          <div className="d-flex justify-content-center gap-3 mt-4">
+            <Button variant="primary" size="lg" onClick={() => navigate('/view-pups')}>
+              Browse Pups
+            </Button>
+            <Button variant="outline-light" size="lg" onClick={() => navigate('/add-dog')}>
+              List My Pup
+            </Button>
           </div>
+        </Container>
+      </section>
 
-          <Row>
-        {tiles.map((tile, index) => (
-          <Col xs={12} md={6} lg={4} key={index}>
-            <a href={tile.path} className="tile-link">
-              <Card
-                className="tile"
-                style={{ backgroundColor: tile.color, color: tile.color === '#ffc107' ? 'black' : 'white' }}
-              >
-                <Card.Body>
-                  <div className="icon-placeholder">
-                    <i className={tile.icon}></i>
-                  </div>
-                  <Card.Title>{tile.title}</Card.Title>
-                  <Card.Text>
-                    {tile.description}
-                  </Card.Text>
-                </Card.Body>
-              </Card>
-            </a>
-          </Col>
-        ))}
-      </Row>
+      {/* Tile Navigation Section */}
+      <section className="tile-section py-5">
+  <Container>
+    <Row className="justify-content-center g-4">
+      {tiles.map((tile, idx) => (
+        <Col key={idx} xs={12} sm={6} md={4} lg={3} className="d-flex justify-content-center">
+          <Card
+            className="text-center h-100 tile"
+            style={{
+              backgroundColor: tile.color,
 
-    </motion.div>
-    <motion.div
-        ref={imageSectionRef}
-        initial="hidden"
-        animate={imageSectionInView ? "visible" : "hidden"}
-        variants={sectionVariants}
-      >
-    <div className="full-height-section image-section">
+              width: '100%',
+              maxWidth: '260px',
+              cursor: 'pointer',
+            }}
+            onClick={() => navigate(tile.path)}
+          >
+            <Card.Body>
+              <div className="mb-3">
+                <FontAwesomeIcon icon={tile.icon} size="2x" />
 
-        <div className="content">
-          <h2>A Special Section</h2>
-          <p>Explore more about our community and activities.</p>
-          <div className="buttons">
-          <a href='coming-soon' rel="noopener noreferrer"><button className="btn btn-primary">Learn More</button></a>
-          <a href='coming-soon' rel="noopener noreferrer"> <button className="btn btn-secondary">Join Us</button></a>
-          </div>
-        </div>
-      </div>
-      </motion.div>
-      <motion.div
-        ref={videoSectionRef}
-        initial="hidden"
-        animate={videoSectionInView ? "visible" : "hidden"}
-        variants={sectionVariants}
-      >
-      <div className="full-height-section another-section">
-        <div className="video-container">
-        <iframe  src="https://www.youtube.com/embed/tKb4vUPpQzo?si=7RcpyQeTmklAz8Ld" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-        </div>
-      </div>
-      </motion.div>
-      <motion.div
-        ref={carouselSectionRef}
-        initial="hidden"
-        animate={carouselSectionInView ? "visible" : "hidden"}
-        variants={sectionVariants}
-      >
-      <footer className="site-footer">
-      <PetCarousel />
-    </footer>
-    </motion.div>
+              </div>
+              <Card.Title>{tile.title}</Card.Title>
+              <Card.Text>{tile.description}</Card.Text>
+            </Card.Body>
+          </Card>
+        </Col>
+      ))}
+    </Row>
+  </Container>
+</section>
+
+
+      {/* Footer Section */}
+      <footer className="text-center py-4 text-muted">
+        <p className="mb-1">Made with 🐾 by LittlePawPlate</p>
+        <p>
+          <a href="/about">About</a> | <a href="/contact">Contact</a> | <a href="/terms">Terms</a>
+        </p>
+      </footer>
     </div>
   );
 }
-
-export default CustomJumbotron;

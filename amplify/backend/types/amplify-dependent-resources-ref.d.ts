@@ -1,20 +1,13 @@
 export type AmplifyDependentResourcesAttributes = {
-  "analytics": {
-    "puppymarketplace": {
-      "Id": "string",
-      "Region": "string",
-      "appName": "string"
-    }
-  },
   "api": {
-    "puppymarketplace": {
+    "littlepawsplace": {
       "GraphQLAPIEndpointOutput": "string",
       "GraphQLAPIIdOutput": "string",
       "GraphQLAPIKeyOutput": "string"
     }
   },
   "auth": {
-    "puppymarketplace5843e7e9": {
+    "littlepawsplacedf9f1beb": {
       "AppClientID": "string",
       "AppClientIDWeb": "string",
       "IdentityPoolId": "string",
@@ -22,13 +15,10 @@ export type AmplifyDependentResourcesAttributes = {
       "UserPoolArn": "string",
       "UserPoolId": "string",
       "UserPoolName": "string"
-    },
-    "userPoolGroups": {
-      "puppymarketGroupRole": "string"
     }
   },
   "storage": {
-    "puppyImages": {
+    "littlepawsplacestorage": {
       "BucketName": "string",
       "Region": "string"
     }

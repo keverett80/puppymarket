@@ -1,0 +1,11 @@
+{
+  "AppSyncApiName": "littlepawsplace",
+  "DynamoDBBillingMode": "PAY_PER_REQUEST",
+  "DynamoDBEnableServerSideEncryption": false,
+  "AuthCognitoUserPoolId": {
+    "Fn::GetAtt": [
+      "authlittlepawsplacedf9f1beb",
+      "Outputs.UserPoolId"
+    ]
+  }
+}

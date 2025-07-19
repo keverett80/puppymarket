@@ -1,9 +1,22 @@
-// ProtectedRoute.js
-import { withAuthenticator } from '@aws-amplify/ui-react';
+// src/components/ProtectedRoute.js
+import { useEffect, useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { Auth } from 'aws-amplify';
 
-function ProtectedRoute({ children }) {
-    console.log("ProtectedRoute rendered ");
-    return children;
+export default function ProtectedRoute({ children }) {
+  const [authenticated, setAuthenticated] = useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+      .then(() => setAuthenticated(true))
+      .catch(() => {
+        setAuthenticated(false);
+        navigate('/login');
+      });
+  }, []);
+
+  if (authenticated === null) return null;
+
+  return children;
 }
-
-export default withAuthenticator(ProtectedRoute);

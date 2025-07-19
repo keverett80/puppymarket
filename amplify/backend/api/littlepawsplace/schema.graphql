@@ -1,0 +1,28 @@
+type Dog
+  @model
+  @auth(rules: [
+    { allow: owner, ownerField: "owner", operations: [create, update, delete] },
+    { allow: private, operations: [read] },
+    { allow: public, operations: [read] }
+  ]) {
+  id: ID!
+  name: String!
+  breed: String!
+  birthDate: AWSDate!
+  description: String
+  price: Float!
+  owner: String
+  imageUrls: [String]   # An array of image URLs
+  dateListed: AWSDateTime! # Date when the puppy was listed for sale
+  gender: Gender!       # Enum type for gender (MALE or FEMALE)
+  location: String!     # Location where the puppy is being sold
+  state: String
+  verified: String
+  type: String! @index(name: "dogByDate", queryField: "dogByDate", sortKeyFields: ["dateListed"])
+
+}
+
+enum Gender {
+  MALE
+  FEMALE
+}

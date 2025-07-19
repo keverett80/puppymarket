@@ -14,9 +14,9 @@ import UserProfile from './components/UserProfile';
 import ProtectedRoute from './components/ProtectedRoute';
 import { Container } from 'react-bootstrap';
 import {Amplify, Auth, Hub} from 'aws-amplify';
-
+import LoginPage from './pages/Auth/LoginPage';
 import DogDetails from './pages/DogDetails/DogDetails';
-import ChatWithBully from './pages/Chat/ChatWithBully';
+import PetMatchQuiz from './pages/Chat/PetMatchQuiz';
 import CustomJumbotron from '../src/pages/Landing';
 import ComingSoon from './pages/ComingSoon/ComingSoon';
 import './App.css'; // Import your CSS file for styling
@@ -112,8 +112,9 @@ function App() {
 
 
 
+{<Route path="/login" element={<LoginPage />} />}
 
-{ <Route path="/chat-with-bully" element={  <ProtectedRoute><ChatWithBully /></ProtectedRoute>} /> }
+{ <Route path="/pet-match" element={  <PetMatchQuiz />} /> }
 { <Route path="/coming-soon" element={  <ComingSoon />} /> }
   {<Route path="/" element={  <CustomJumbotron isAuthenticated={isAuthenticated}  />} />}
 {           <Route path="/view-pups" element={ <Home isAuthenticated={isAuthenticated} filterBreed={filterBreed} filterCity={filterCity} />
@@ -122,7 +123,7 @@ function App() {
 
           </Routes>
         </Container>
-        <> <Footer /></>
+
       </div>
       </AnimatePresence>
     </Router>

@@ -4,16 +4,10 @@
     object-fit: cover;
 }
 
-/* Any other specific styles */
-.mt-4,
-.container {}
-
 .dogBg {
-    display: flex !important;
-    flex-direction: column !important;
-    justify-content: space-between !important;
-    /* This distributes space evenly */
-    height: 100% !important;
-    /* Full height */
-    width: 100% !important;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    /* Removed width: 100% !important; */
 }

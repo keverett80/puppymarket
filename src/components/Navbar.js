@@ -1,190 +1,144 @@
 import React, { useState, useEffect } from 'react';
-import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
-import Nav from 'react-bootstrap/Nav';
-import Navbar from 'react-bootstrap/Navbar';
-import Button from 'react-bootstrap/Button';
-import NavDropdown from 'react-bootstrap/NavDropdown';
-import { useNavigate } from 'react-router-dom';
-import { Auth } from 'aws-amplify';
+import { Navbar, Container, Button, Modal, Form } from 'react-bootstrap';
+import { useNavigate, useLocation } from 'react-router-dom';
+import { Auth, API, graphqlOperation, Storage } from 'aws-amplify';
 import './Navbar.css';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPaw } from '@fortawesome/free-solid-svg-icons';
-import { useLocation } from 'react-router-dom';
+import { faPaw, faUserEdit, faUserSlash, faUserCircle, faPlusCircle, faRightFromBracket } from '@fortawesome/free-solid-svg-icons';
 import useScrollToTop from '../helpers/useScrollToTop';
+import { listDogs } from '../graphql/queries';
+import { deleteDog } from '../graphql/mutations';
 
-
-
-function NavbarComponent({ isAuthenticated, setIsAuthenticated, onFilterChange }) {
+function NavbarComponent({ isAuthenticated, setIsAuthenticated }) {
   const navigate = useNavigate();
+  const location = useLocation();
   useScrollToTop();
-  const location = useLocation(); // Get the current location
-  const [loginClicked, setLoginClicked] = useState(false);
-  const [filterBreed, setFilterBreed] = useState("");
-const [filterCity, setFilterCity] = useState("");
+
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [userDetails, setUserDetails] = useState({ name: '', email: '' });
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const user = await Auth.currentAuthenticatedUser();
+        setUserDetails({
+          name: user.attributes.name || '',
+          email: user.attributes.email || '',
+        });
+      } catch (error) {
+        console.error('Error fetching user:', error);
+      }
+    };
+
+    if (isAuthenticated) fetchUser();
+  }, [isAuthenticated]);
 
   const handleLogout = async () => {
+    await Auth.signOut();
+    setIsAuthenticated(false);
+    navigate('/');
+  };
+
+  const handleDeleteProfile = async () => {
+    const confirmed = window.confirm("This will permanently delete your account and all associated listings. Continue?");
+    if (!confirmed) return;
+
     try {
-        await Auth.signOut();
-        setIsAuthenticated(false); // Set authentication state to false
-        setLoginClicked(false);   // Hide the "Cancel Login" button
-        navigate('/');
-    } catch (error) {
-        console.error('Error signing out: ', error);
+      const user = await Auth.currentAuthenticatedUser();
+      const email = user.attributes.email;
+
+      const dogData = await API.graphql(graphqlOperation(listDogs, { filter: { verified: { eq: email } } }));
+      const dogs = dogData.data.listDogs.items;
+
+      for (const dog of dogs) {
+        await API.graphql(graphqlOperation(deleteDog, { input: { id: dog.id } }));
+        for (const key of dog.imageUrls || []) {
+          await Storage.remove(key, { level: 'public' });
+        }
+      }
+
+      await Auth.deleteUser();
+      alert("Your account has been deleted.");
+      navigate('/');
+    } catch (err) {
+      console.error("Failed to delete profile:", err);
+      alert("Something went wrong. Try again later.");
     }
-};
-const handleBreedChange = (event) => {
-  setFilterBreed(event.target.value); // Save the breed to state
-  onFilterChange(event.target.value, filterCity); // Send breed and current city to the parent
-};
-
-const handleCityChange = (event) => {
-  setFilterCity(event.target.value); // Save the city to state
-  onFilterChange(filterBreed, event.target.value); // Send current breed and city to the parent
-};
-// In your NavbarComponent
-const handleLoginClick = () => {
-  setLoginClicked(true);
-  navigate('/paw-home');
-};
-
-const handleRegisterClick = () => {
-  setLoginClicked(true);
-    navigate('/paw-home');
-};
-
-
-
-  const handleLogin = () => {
-    // 2. Modify the handleLogin function
-    console.log("handleLogin function triggered!");
-    setLoginClicked(true);
-    navigate('/home');
   };
-  const handleHome = () => {
-
-    navigate('/');
-  };
-
-  const handleCancelLogin = () => {
-    // 4. Modify the handleCancelLogin function
-    setLoginClicked(false);
-    navigate('/');
-  }
-  const applyFilter = () => {
-    onFilterChange(filterBreed, filterCity);
-};
-const fetchBrowserLocation = () => {
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(handlePositionSuccess, handlePositionError);
-  } else {
-    console.error("Geolocation is not supported by this browser.");
-  }
-};
-
-const handlePositionSuccess = async (position) => {
-  const latitude = position.coords.latitude;
-  const longitude = position.coords.longitude;
-
-  try {
-    const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=AIzaSyAdnS_bTUUA8hlPRJkr0tDPBZ_vdA4hH9Y`);
-    const data = await response.json();
-    console.log(data)
-    const addressComponents = data.results[0].address_components;
-    const cityComponent = addressComponents.find(component => component.types.includes('locality'));
-    const city = cityComponent ? cityComponent.long_name : "";
-
-
-  } catch (error) {
-    console.error("Error converting coordinates to location:", error);
-  }
-};
-
-
-const handlePositionError = (error) => {
-  console.error("Error fetching location:", error.message);
-};
-
-
-useEffect(() => {
-  fetchBrowserLocation();
-}, []);
-
-
-
 
   return (
+    <Navbar expand="lg" style={{ backgroundColor: 'transparent', border: '1px solid #e8e8e8' }}>
+      <Container fluid>
+        <Navbar.Brand href='/' className="text-primary font-weight-bold">
+          <FontAwesomeIcon icon={faPaw} /> Little Paws Place
+        </Navbar.Brand>
 
-<Navbar expand="lg" style={{ backgroundColor: 'transparent', border: '1px solid #e8e8e8' }}>
-
-
-    <Container fluid>
-      <Navbar.Brand  href='/' className="text-primary font-weight-bold"><FontAwesomeIcon icon={faPaw} className="mr-2" /> Little Paws Place</Navbar.Brand>
-      <Navbar.Toggle aria-controls="navbarScroll" />
-      <Navbar.Collapse id="navbarScroll">
-
-
-              <>
-
-<Button variant="primary" onClick={handleHome}>
-                  <i className='fas fa-home'> Paw Home</i>
-                </Button>
-              </>
-
-
-        <Nav className="me-auto my-2 my-lg-0" style={{ maxHeight: '100px' }} navbarScroll>
-          {isAuthenticated && <Nav.Link href="/add-dog" className="text-primary font-weight-bold">Add Dog</Nav.Link>}
-          {isAuthenticated && <Nav.Link href="/profile" className="text-primary font-weight-bold">Profile</Nav.Link>}
-        </Nav>
-        {!isAuthenticated && (
-          <div className="ml-auto" style={{ display: 'flex' }}>
-              <Button variant="outline-primary" onClick={handleLoginClick} className="mr-2 mx-2">
+        <div className="ms-auto d-flex align-items-center">
+          {isAuthenticated ? (
+            <>
+              <Button variant="light" onClick={() => navigate('/add-dog')} title="Add Dog" className="mx-1">
+                <FontAwesomeIcon icon={faPlusCircle} />
+              </Button>
+              <Button variant="light" onClick={() => navigate('/profile')} title="Profile" className="mx-1">
+                <FontAwesomeIcon icon={faUserCircle} />
+              </Button>
+              <Button variant="light" onClick={() => setShowEditModal(true)} title="Edit Profile" className="mx-1">
+                <FontAwesomeIcon icon={faUserEdit} />
+              </Button>
+              <Button variant="light" onClick={handleLogout} title="Logout" className="mx-1">
+                <FontAwesomeIcon icon={faRightFromBracket} />
+              </Button>
+              <Button variant="danger" onClick={() => setShowDeleteModal(true)} title="Delete Profile" className="mx-1">
+                <FontAwesomeIcon icon={faUserSlash} />
+              </Button>
+            </>
+          ) : (
+            <>
+              <Button variant="outline-primary" onClick={() => navigate('/paw-home')} className="mx-1">
                 Login
               </Button>
-              <Button variant="primary" onClick={handleRegisterClick} className='mx-2'>
+              <Button variant="primary" onClick={() => navigate('/paw-home')} className="mx-1">
                 Register
               </Button>
-            </div>
+            </>
           )}
+        </div>
 
-        {/* Grouped form elements */}
-        {(location.pathname === '/view-pups' || location.pathname === '/home') && (
-            <Form className="d-flex align-items-center">
-              <Form.Control
-                type="text"
-                className="text-primary font-weight-bold"
-                placeholder="Breed"
-                onChange={handleBreedChange}
-                style={{ marginRight: '10px' }}
-              />
-              <Form.Control
-                type="text"
-                placeholder="City"
-                className="text-primary font-weight-bold"
-                onChange={handleCityChange}
-                style={{ marginRight: '10px' }}
-              />
+        {/* Edit Profile Modal */}
+        <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
+          <Modal.Header closeButton>
+            <Modal.Title>Edit Profile</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Form>
+              <Form.Group className="mb-3">
+                <Form.Label>Name</Form.Label>
+                <Form.Control type="text" defaultValue={userDetails.name} />
+              </Form.Group>
+              <Form.Group className="mb-3">
+                <Form.Label>Email</Form.Label>
+                <Form.Control type="email" defaultValue={userDetails.email} disabled />
+              </Form.Group>
+              <Button variant="primary" onClick={() => setShowEditModal(false)}>Save</Button>
             </Form>
-          )}
+          </Modal.Body>
+        </Modal>
 
-          {/* Logout button always visible when authenticated */}
-          {isAuthenticated && (
-            <Button
-              variant="outline-primary"
-              onClick={handleLogout}
-              style={{ marginRight: '10px' }}
-            >
-              Logout
-            </Button>
-          )}
-        </Navbar.Collapse>
+        {/* Delete Profile Modal */}
+        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+          <Modal.Header closeButton>
+            <Modal.Title>Delete Profile</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>This action will permanently delete your account and all listings. Continue?</Modal.Body>
+          <Modal.Footer>
+            <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>Cancel</Button>
+            <Button variant="danger" onClick={handleDeleteProfile}>Delete</Button>
+          </Modal.Footer>
+        </Modal>
+
       </Container>
-</Navbar>
-
-
-
-
-
+    </Navbar>
   );
 }
 
