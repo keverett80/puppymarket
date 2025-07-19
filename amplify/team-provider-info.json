@@ -1,22 +1,19 @@
 {
-  "dev": {
+  "main": {
     "awscloudformation": {
-      "AuthRoleName": "amplify-littlepawsplace-dev-6d13b-authRole",
-      "UnauthRoleArn": "arn:aws:iam::485312755926:role/amplify-littlepawsplace-dev-6d13b-unauthRole",
-      "AuthRoleArn": "arn:aws:iam::485312755926:role/amplify-littlepawsplace-dev-6d13b-authRole",
+      "AuthRoleName": "amplify-puppymarketplace-main-de3e3-authRole",
+      "UnauthRoleArn": "arn:aws:iam::485312755926:role/amplify-puppymarketplace-main-de3e3-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::485312755926:role/amplify-puppymarketplace-main-de3e3-authRole",
       "Region": "us-east-1",
-      "DeploymentBucketName": "amplify-littlepawsplace-dev-6d13b-deployment",
-      "UnauthRoleName": "amplify-littlepawsplace-dev-6d13b-unauthRole",
-      "StackName": "amplify-littlepawsplace-dev-6d13b",
-      "StackId": "arn:aws:cloudformation:us-east-1:485312755926:stack/amplify-littlepawsplace-dev-6d13b/d1e10c90-622e-11f0-a191-0e7e12f9f75f",
+      "DeploymentBucketName": "amplify-puppymarketplace-main-de3e3-deployment",
+      "UnauthRoleName": "amplify-puppymarketplace-main-de3e3-unauthRole",
+      "StackName": "amplify-puppymarketplace-main-de3e3",
+      "StackId": "arn:aws:cloudformation:us-east-1:485312755926:stack/amplify-puppymarketplace-main-de3e3/7d65f0d0-6441-11f0-ae47-0eda3b51d88f",
       "AmplifyAppId": "d1tppohalyzofq"
     },
     "categories": {
       "auth": {
         "littlepawsplacedf9f1beb": {}
-      },
-      "api": {
-        "littlepawsplace": {}
       },
       "storage": {
         "littlepawsplacestorage": {}
