@@ -119,8 +119,15 @@ const handleImagesChange = (imageList) => {
   }
 
   setImageError('');
-  setDog(prev => ({ ...prev, imageUrls: imageList }));
+  setDog(prev => ({
+    ...prev,
+    imageUrls: imageList.map(img => ({
+      file: img.file,
+      data_url: img.data_url
+    }))
+  }));
 };
+
 
 
 const validateStep = () => {
