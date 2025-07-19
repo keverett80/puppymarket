@@ -2,8 +2,10 @@
   "resourceName": "littlepawsplacestorage",
   "policyUUID": "ff08205f",
   "bucketName": "littlepawsplace6585b24393184f21886a1d53f017e617",
-  "storageAccess": "auth",
-  "guestAccess": [],
+  "storageAccess": "authAndGuest",
+  "guestAccess": [
+    "READ"
+  ],
   "authAccess": [
     "CREATE_AND_UPDATE",
     "READ",

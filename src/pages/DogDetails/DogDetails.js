@@ -122,22 +122,36 @@ const isValidPhone = (phone) =>
           <Button onClick={() => navigate(-1)} sx={{ ml: 2 }}>Back</Button>
         </Grid>
 
-        <Grid item xs={12} md={4}>
-          <Grid container spacing={2}>
-            {imageUrls.map((url, idx) => (
-              <Grid item xs={4} key={idx}>
-                <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', cursor: 'pointer' }} onClick={() => setSelectedImage(url)}>
-                  <CardMedia
-                    component="img"
-                    image={url}
-                    alt={`Dog ${idx}`}
-                    sx={{ height: 80, objectFit: 'cover' }}
-                  />
-                </Card>
-              </Grid>
-            ))}
-          </Grid>
-        </Grid>
+     <Grid item xs={12} md={4}>
+  <Grid container spacing={2}>
+    {imageUrls.map((url, idx) => (
+      // 2 columns on xs, 3 on sm, 4 on md+
+      <Grid item xs={6} sm={4} md={3} key={idx}>
+        <Card
+          sx={{
+            width: '100%',
+            // keep it square
+            aspectRatio: '1 / 1',
+            display: 'flex',
+            cursor: 'pointer'
+          }}
+          onClick={() => setSelectedImage(url)}
+        >
+          <CardMedia
+            component="img"
+            image={url}
+            alt={`Dog ${idx}`}
+            sx={{
+              width: '100%',
+              height: '100%',
+              objectFit: 'cover'
+            }}
+          />
+        </Card>
+      </Grid>
+    ))}
+  </Grid>
+</Grid>
       </Grid>
 
       <Dialog open={!!selectedImage} onClose={() => setSelectedImage(null)} maxWidth="md">

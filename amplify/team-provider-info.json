@@ -17,6 +17,9 @@
       },
       "storage": {
         "littlepawsplacestorage": {}
+      },
+      "api": {
+        "littlepawsplace": {}
       }
     }
   }
