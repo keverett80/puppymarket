@@ -236,18 +236,21 @@ const imageUrls = await Promise.all(
   helperText={errors.birthDate}
   fullWidth
   InputLabelProps={{ shrink: true }}
-  inputProps={{
+ inputProps={{
     max: new Date().toISOString().split('T')[0],
     pattern: "\\d{4}-\\d{2}-\\d{2}"
+ }}
+  // force the input's root and the native <input> to match MUI's default height
+ sx={{
+    '& .MuiInputBase-root': {
+      height: 56,                 // match other TextFields
+    },
+    '& .MuiInputBase-input': {
+      height: '100%',             // fill the 56px container
+      padding: '0 14px',          // same horizontal padding
+      boxSizing: 'border-box',
+    },
   }}
-sx={{
-  height: '56px',
-  '& input': {
-    height: '100%',
-    padding: '0 14px',
-    boxSizing: 'border-box'
-  }
-}}
 
 />
 
