@@ -18,7 +18,7 @@ import {
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useParams, useNavigate } from 'react-router-dom';
-import { API, Storage, Auth } from 'aws-amplify';
+import { API,  Auth } from 'aws-amplify';
 import { GRAPHQL_AUTH_MODE } from '@aws-amplify/api';
 import { getDog } from '../../graphql/queries';
 import { deleteDog } from '../../graphql/mutations';
@@ -51,12 +51,8 @@ const isValidPhone = (phone) =>
         });
         setDog(data.getDog);
 
-        if (data.getDog.imageUrls?.length) {
-          const urls = await Promise.all(
-            data.getDog.imageUrls.map(key => Storage.get(key, { level: 'public' }))
-          );
-          setImageUrls(urls);
-        }
+      setImageUrls(data.getDog.imageUrls || []);
+
       } catch (error) {
         console.error('Error fetching dog:', error);
       }
@@ -123,31 +119,34 @@ const isValidPhone = (phone) =>
         </Grid>
 
      <Grid item xs={12} md={4}>
-  <Grid container spacing={2}>
+  <Grid container spacing={1}>
     {imageUrls.map((url, idx) => (
       // 2 columns on xs, 3 on sm, 4 on md+
-      <Grid item xs={6} sm={4} md={3} key={idx}>
-        <Card
-          sx={{
-            width: '100%',
-            // keep it square
-            aspectRatio: '1 / 1',
-            display: 'flex',
-            cursor: 'pointer'
-          }}
-          onClick={() => setSelectedImage(url)}
-        >
-          <CardMedia
-            component="img"
-            image={url}
-            alt={`Dog ${idx}`}
-            sx={{
-              width: '100%',
-              height: '100%',
-              objectFit: 'cover'
-            }}
-          />
-        </Card>
+      <Grid item xs={12} sm={6} md={4} key={idx}>
+    <Card
+  sx={{
+    width: '100%',
+    aspectRatio: '1 / 1',
+    overflow: 'hidden',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    cursor: 'pointer'
+  }}
+  onClick={() => setSelectedImage(url)}
+>
+  <CardMedia
+    component="img"
+    image={url}
+    alt={`Dog ${idx}`}
+    sx={{
+      width: '100%',
+      height: '100%',
+      objectFit: 'cover'
+    }}
+  />
+</Card>
+
       </Grid>
     ))}
   </Grid>

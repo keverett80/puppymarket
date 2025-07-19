@@ -15,43 +15,9 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 
 const DogCard = ({ dog, showManage = false, onEdit, onDelete }) => {
-  const [imageUrl, setImageUrl] = useState('/fallback-dog.png');
-  const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const loadImage = async () => {
-      const key = Array.isArray(dog?.imageUrls) && dog.imageUrls.length > 0
-        ? dog.imageUrls[0]
-        : null;
+  const imageUrl = dog?.imageUrls?.[0] || '/fallback-dog.png';
 
-      if (!key) {
-        setLoading(false);
-        return;
-      }
-
-      try {
-        const url = await Storage.get(key, { level: 'public' });
-
-        const img = new Image();
-        img.onload = () => {
-          setImageUrl(url);
-          setLoading(false);
-        };
-        img.onerror = () => {
-          console.warn("Image exists in S3 but failed to load:", url);
-          setImageUrl('/fallback-dog.png');
-          setLoading(false);
-        };
-        img.src = url;
-      } catch (err) {
-        console.warn('Storage.get() failed:', err);
-        setImageUrl('/fallback-dog.png');
-        setLoading(false);
-      }
-    };
-
-    loadImage();
-  }, [dog?.imageUrls]);
 
   if (!dog) return null;
 
@@ -61,30 +27,19 @@ const DogCard = ({ dog, showManage = false, onEdit, onDelete }) => {
 >
 
       <Link to={`/dogs/${dog.id}`} style={{ textDecoration: 'none', color: 'inherit' }}>
-        {loading ? (
-          <Box sx={{
-            height: 200,
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
-            backgroundColor: '#f5f5f5'
-          }}>
-            <Typography color="text.secondary">Loading...</Typography>
-          </Box>
-        ) : (
-          <CardMedia
-            component="img"
-            image={imageUrl}
-            alt={dog.name}
-            sx={{
-              height: 200,
-              width: '100%',
-              objectFit: 'cover',
-              borderTopLeftRadius: 8,
-              borderTopRightRadius: 8
-            }}
-          />
-        )}
+        <CardMedia
+  component="img"
+  image={imageUrl}
+  alt={dog.name}
+  sx={{
+    height: 200,
+    width: '100%',
+    objectFit: 'cover',
+    borderTopLeftRadius: 8,
+    borderTopRightRadius: 8
+  }}
+/>
+
       </Link>
 
       <CardContent sx={{ flexGrow: 1 }}>

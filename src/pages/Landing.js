@@ -21,7 +21,7 @@ const tiles = [
     path: "/view-pups",
     color: "#4e73df",
     textColor: "white",
-    description: "Find your next companion — dog, cat, or critter.",
+    description: "Find your next companion — dog, cats, goats and more...",
   },
   {
     title: "Create a New Listing",
@@ -56,13 +56,13 @@ const tiles = [
 </div>
 
           <h1 className="display-4 fw-bold">Find a Home. Give a Home.</h1>
-          <p className="lead">Helping pets find their forever families with one simple step.</p>
+          <p className="lead">Helping all pets find their forever families.</p>
           <div className="d-flex justify-content-center gap-3 mt-4">
             <Button variant="primary" size="lg" onClick={() => navigate('/view-pups')}>
-              Browse Pups
+              Browse Listings
             </Button>
             <Button variant="outline-light" size="lg" onClick={() => navigate('/add-dog')}>
-              List My Pup
+              Create a Listing
             </Button>
           </div>
         </Container>

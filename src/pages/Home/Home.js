@@ -39,11 +39,12 @@ function Home() {
     try {
       const res = await fetch('https://izaaugmn66.execute-api.us-east-1.amazonaws.com/default/getPetfinderToken');
       const data = await res.json();
-      const apiPets = data.map(p => ({
-        ...p,
-        source: 'petfinder',
-        uniqueKey: `petfinder-${p.id || p.url || uuidv4()}`,
-      }));
+     const apiPets = Array.isArray(data) ? data.map(p => ({
+  ...p,
+  source: 'petfinder',
+  uniqueKey: `petfinder-${p.id || p.url || uuidv4()}`,
+})) : [];
+
       setPetfinderAnimals(apiPets);
     } catch (err) {
       console.error('Error fetching Petfinder:', err);
@@ -57,15 +58,25 @@ function Home() {
     fetchPetfinderAnimals();
   }, []);
 
-  const combined = [...dogs, ...petfinderAnimals].filter(item => {
-    const breed = item.source === 'local' ? item.breed : item.breeds?.primary;
-    const location = item.source === 'local'
+const combined = [...dogs, ...petfinderAnimals].filter(item => {
+  const breedOrType =
+    item.source === 'local'
+      ? item.breed || item.type || ''
+      : item.breeds?.primary || item.species || item.type || '';
+
+  const location =
+    item.source === 'local'
       ? item.location
-      : `${item.contact?.address?.city}, ${item.contact?.address?.state}`;
-    return `${breed || ''} ${location || ''}`
-      .toLowerCase()
-      .includes(searchTerm.toLowerCase());
-  });
+      : `${item.contact?.address?.city || ''}, ${item.contact?.address?.state || ''}`;
+
+  // Combine relevant fields into searchable text
+  const searchableText = `${breedOrType} ${location} ${item.name || ''} ${item.description || ''}`
+  .toLowerCase();
+
+
+  return searchableText.includes(searchTerm.toLowerCase());
+});
+
 
   const infiniteList = searchTerm.trim().length > 0 ? combined : [...combined, ...combined];
 
@@ -90,14 +101,25 @@ function Home() {
       ref={scrollContainerRef}
       style={{ marginTop: '1rem', height: '80vh', overflowY: 'auto' }}
     >
-      <Container>
-        <Form.Control
-          type="text"
-          placeholder="Search pets by breed or city..."
-          value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
-          className="mb-3"
-        />
+     <Container>
+  <div
+    style={{
+      position: 'sticky',
+      top: 0,
+      backgroundColor: 'white',
+      zIndex: 1000,
+      paddingTop: '1rem',
+      paddingBottom: '0.5rem',
+    }}
+  >
+    <Form.Control
+      type="text"
+      placeholder="Search pets by breed, type, or city..."
+      value={searchTerm}
+      onChange={e => setSearchTerm(e.target.value)}
+      className="mb-3"
+    />
+  </div>
 
         {isLoading ? (
           <div

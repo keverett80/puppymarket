@@ -167,17 +167,18 @@ const handleSubmit = async () => {
     const userEmail = await getCurrentUser();
     const dateListed = new Date().toISOString();
 
-    const imageKeys = await Promise.all(
-      dog.imageUrls.map(async (img) => {
-        const ext = img.file.name.split('.').pop();
-        const fileName = `${uuidv4()}.${ext}`;
-        const result = await Storage.put(fileName, img.file, {
-          contentType: `image/${ext}`,
-          level: 'public',
-        });
-        return result.key;
-      })
-    );
+const imageUrls = await Promise.all(
+  dog.imageUrls.map(async (img) => {
+    const ext = img.file.name.split('.').pop();
+    const fileName = `${uuidv4()}.${ext}`;
+    const result = await Storage.put(fileName, img.file, {
+      contentType: img.file.type,
+      level: 'public',
+    });
+    return `https://${process.env.REACT_APP_S3_BUCKET}.s3.amazonaws.com/public/${result.key}`;
+  })
+);
+
 
   await API.graphql(
   graphqlOperation(createDog, {
@@ -186,7 +187,7 @@ const handleSubmit = async () => {
       owner: username,        // ✅ required for ownership
       verified: userEmail,    // optional, if you're verifying by email separately
       dateListed,
-      imageUrls: imageKeys,
+      imageUrls,
     },
   })
 );
@@ -217,7 +218,7 @@ const handleSubmit = async () => {
           {step === 0 && (
             <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
               <TextField label="Name" name="name" value={dog.name} onChange={handleChange} error={!!errors.name} helperText={errors.name} fullWidth />
-              <TextField label="Breed" name="breed" value={dog.breed} onChange={handleChange} error={!!errors.breed} helperText={errors.breed} fullWidth />
+              <TextField label="Breed/Type" name="breed" value={dog.breed} onChange={handleChange} error={!!errors.breed} helperText={errors.breed} fullWidth />
               <TextField
   type="date"
   label="Birth Date"
