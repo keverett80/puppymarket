@@ -240,13 +240,15 @@ const imageUrls = await Promise.all(
     max: new Date().toISOString().split('T')[0],
     pattern: "\\d{4}-\\d{2}-\\d{2}"
   }}
-  sx={{
-    '& input': {
-      height: '1.5em',         // normalize height
-      padding: '16.5px 14px',  // match default MUI padding
-      boxSizing: 'border-box'
-    }
-  }}
+sx={{
+  height: '56px',
+  '& input': {
+    height: '100%',
+    padding: '0 14px',
+    boxSizing: 'border-box'
+  }
+}}
+
 />
 
 

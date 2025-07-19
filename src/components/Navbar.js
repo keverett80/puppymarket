@@ -68,77 +68,51 @@ function NavbarComponent({ isAuthenticated, setIsAuthenticated }) {
   };
 
   return (
-    <Navbar expand="lg" style={{ backgroundColor: 'transparent', border: '1px solid #e8e8e8' }}>
-      <Container fluid>
-        <Navbar.Brand href='/' className="text-primary font-weight-bold">
-          <FontAwesomeIcon icon={faPaw} /> Little Paws Place
-        </Navbar.Brand>
+<Navbar expand="lg" style={{ backgroundColor: 'transparent', border: '1px solid #e8e8e8' }}>
+  <Container fluid>
+    <Navbar.Brand href='/' className="text-primary font-weight-bold">
+      <FontAwesomeIcon icon={faPaw} /> Little Paws Place
+    </Navbar.Brand>
 
-        <div className="ms-auto d-flex align-items-center">
-          {isAuthenticated ? (
-            <>
-              <Button variant="light" onClick={() => navigate('/add-dog')} title="Add Dog" className="mx-1">
-                <FontAwesomeIcon icon={faPlusCircle} />
-              </Button>
-              <Button variant="light" onClick={() => navigate('/profile')} title="Profile" className="mx-1">
-                <FontAwesomeIcon icon={faUserCircle} />
-              </Button>
-              <Button variant="light" onClick={() => setShowEditModal(true)} title="Edit Profile" className="mx-1">
-                <FontAwesomeIcon icon={faUserEdit} />
-              </Button>
-              <Button variant="light" onClick={handleLogout} title="Logout" className="mx-1">
-                <FontAwesomeIcon icon={faRightFromBracket} />
-              </Button>
-              <Button variant="danger" onClick={() => setShowDeleteModal(true)} title="Delete Profile" className="mx-1">
-                <FontAwesomeIcon icon={faUserSlash} />
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button variant="outline-primary" onClick={() => navigate('/paw-home')} className="mx-1">
-                Login
-              </Button>
-              <Button variant="primary" onClick={() => navigate('/paw-home')} className="mx-1">
-                Register
-              </Button>
-            </>
-          )}
-        </div>
+    {/* This adds the hamburger menu */}
+    <Navbar.Toggle aria-controls="basic-navbar-nav" />
 
-        {/* Edit Profile Modal */}
-        <Modal show={showEditModal} onHide={() => setShowEditModal(false)}>
-          <Modal.Header closeButton>
-            <Modal.Title>Edit Profile</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>
-            <Form>
-              <Form.Group className="mb-3">
-                <Form.Label>Name</Form.Label>
-                <Form.Control type="text" defaultValue={userDetails.name} />
-              </Form.Group>
-              <Form.Group className="mb-3">
-                <Form.Label>Email</Form.Label>
-                <Form.Control type="email" defaultValue={userDetails.email} disabled />
-              </Form.Group>
-              <Button variant="primary" onClick={() => setShowEditModal(false)}>Save</Button>
-            </Form>
-          </Modal.Body>
-        </Modal>
+    {/* This is the collapsible wrapper */}
+    <Navbar.Collapse id="basic-navbar-nav">
+      <div className="ms-auto d-flex align-items-center">
+        {isAuthenticated ? (
+          <>
+            <Button variant="light" onClick={() => navigate('/add-dog')} title="Add Dog" className="mx-1">
+              <FontAwesomeIcon icon={faPlusCircle} />
+            </Button>
+            <Button variant="light" onClick={() => navigate('/profile')} title="Profile" className="mx-1">
+              <FontAwesomeIcon icon={faUserCircle} />
+            </Button>
+            <Button variant="light" onClick={() => setShowEditModal(true)} title="Edit Profile" className="mx-1">
+              <FontAwesomeIcon icon={faUserEdit} />
+            </Button>
+            <Button variant="light" onClick={handleLogout} title="Logout" className="mx-1">
+              <FontAwesomeIcon icon={faRightFromBracket} />
+            </Button>
+            <Button variant="danger" onClick={() => setShowDeleteModal(true)} title="Delete Profile" className="mx-1">
+              <FontAwesomeIcon icon={faUserSlash} />
+            </Button>
+          </>
+        ) : (
+          <>
+            <Button variant="outline-primary" onClick={() => navigate('/paw-home')} className="mx-1">
+              Login
+            </Button>
+            <Button variant="primary" onClick={() => navigate('/paw-home')} className="mx-1">
+              Register
+            </Button>
+          </>
+        )}
+      </div>
+    </Navbar.Collapse>
+  </Container>
+</Navbar>
 
-        {/* Delete Profile Modal */}
-        <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
-          <Modal.Header closeButton>
-            <Modal.Title>Delete Profile</Modal.Title>
-          </Modal.Header>
-          <Modal.Body>This action will permanently delete your account and all listings. Continue?</Modal.Body>
-          <Modal.Footer>
-            <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>Cancel</Button>
-            <Button variant="danger" onClick={handleDeleteProfile}>Delete</Button>
-          </Modal.Footer>
-        </Modal>
-
-      </Container>
-    </Navbar>
   );
 }
 
