@@ -130,7 +130,7 @@ const validateStep = () => {
     if (!dog.name.trim()) newErrors.name = "Name is required.";
     if (!dog.breed.trim()) newErrors.breed = "Breed is required.";
     if (!dog.birthDate) newErrors.birthDate = "Birth date is required.";
-    if (!dog.price || isNaN(Number(dog.price)) || Number(dog.price) <= 0) {
+    if (!dog.price || isNaN(Number(dog.price)) ) {
       newErrors.price = "Enter a valid rehoming fee.";
     }
     if (!dog.gender) newErrors.gender = "Gender is required.";
