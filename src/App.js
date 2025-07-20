@@ -18,10 +18,12 @@ import LoginPage from './pages/Auth/LoginPage';
 import DogDetails from './pages/DogDetails/DogDetails';
 import PetMatchQuiz from './pages/Chat/PetMatchQuiz';
 import CustomJumbotron from '../src/pages/Landing';
-import ComingSoon from './pages/ComingSoon/ComingSoon';
+import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
+import TermsOfService from './pages/TermsOfService/TermsOfService';
 import './App.css'; // Import your CSS file for styling
 import awsconfig from './aws-exports';
 import { AnimatePresence } from 'framer-motion';
+
 Amplify.configure(awsconfig);
 
 function App() {
@@ -115,7 +117,8 @@ function App() {
 {<Route path="/login" element={<LoginPage />} />}
 
 { <Route path="/pet-match" element={  <PetMatchQuiz />} /> }
-{ <Route path="/coming-soon" element={  <ComingSoon />} /> }
+{ <Route path="/privacy-policy" element={  <PrivacyPolicy />} /> }
+{ <Route path="/term-service" element={  <TermsOfService />} /> }
   {<Route path="/" element={  <CustomJumbotron isAuthenticated={isAuthenticated}  />} />}
 {           <Route path="/view-pups" element={ <Home isAuthenticated={isAuthenticated} filterBreed={filterBreed} filterCity={filterCity} />
 

@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Landing.css';
 import runningAnimals from '../assets/images/loading1.gif'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons'
 import {
   faPaw,
   faCirclePlus,
@@ -102,12 +103,34 @@ const tiles = [
 
 
       {/* Footer Section */}
-      <footer className="text-center py-4 text-muted">
-        <p className="mb-1">Made with 🐾 by LittlePawPlate</p>
-        <p>
-          <a href="/about">About</a> | <a href="/contact">Contact</a> | <a href="/terms">Terms</a>
-        </p>
-      </footer>
+<footer className="text-center py-4 text-muted">
+  <p className="mb-1">Made with 🐾 by LittlePawPlace</p>
+  <p>
+    <a href="/about">About</a> |{" "}
+    <a href="/contact">Contact</a> |{" "}
+    <a href="/term-service">Terms</a> |{" "}
+    <a href="/privacy-policy">Privacy</a>
+  </p>
+  <p className="mt-2">
+    <a
+      href="https://www.tiktok.com/@littlepawsplaces"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="me-3"
+    >
+      <FontAwesomeIcon icon={faTiktok} /> TikTok
+    </a>
+    <a
+      href="https://twitter.com/littlepawsplace"
+      target="_blank"
+      rel="noopener noreferrer"
+    >
+      <FontAwesomeIcon icon={faTwitter} /> Twitter
+    </a>
+  </p>
+</footer>
+
+
     </div>
   );
 }
