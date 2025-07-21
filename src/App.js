@@ -20,6 +20,7 @@ import PetMatchQuiz from './pages/Chat/PetMatchQuiz';
 import CustomJumbotron from '../src/pages/Landing';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService/TermsOfService';
+import InstagramCallback from './pages/InstagramCallback/InstagramCallback'
 import './App.css'; // Import your CSS file for styling
 import awsconfig from './aws-exports';
 import { AnimatePresence } from 'framer-motion';
@@ -115,6 +116,7 @@ function App() {
 
 
 {<Route path="/login" element={<LoginPage />} />}
+<Route path="/oauth/instagram" element={<InstagramCallback />} />
 
 { <Route path="/pet-match" element={  <PetMatchQuiz />} /> }
 { <Route path="/privacy-policy" element={  <PrivacyPolicy />} /> }
