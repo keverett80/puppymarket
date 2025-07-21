@@ -17,7 +17,6 @@ import {Amplify, Auth, Hub} from 'aws-amplify';
 import LoginPage from './pages/Auth/LoginPage';
 import DogDetails from './pages/DogDetails/DogDetails';
 import PetMatchQuiz from './pages/Chat/PetMatchQuiz';
-import InstagramOauthCallback from './pages/instagram-oauth-callback';
 import CustomJumbotron from '../src/pages/Landing';
 import PrivacyPolicy from './pages/PrivacyPolicy/PrivacyPolicy';
 import TermsOfService from './pages/TermsOfService/TermsOfService';
@@ -120,7 +119,6 @@ function App() {
 { <Route path="/pet-match" element={  <PetMatchQuiz />} /> }
 { <Route path="/privacy-policy" element={  <PrivacyPolicy />} /> }
 { <Route path="/term-service" element={  <TermsOfService />} /> }
-{ <Route path="/oauth/instagram" element={  <InstagramOauthCallback />} /> }
   {<Route path="/" element={  <CustomJumbotron isAuthenticated={isAuthenticated}  />} />}
 {           <Route path="/view-pups" element={ <Home isAuthenticated={isAuthenticated} filterBreed={filterBreed} filterCity={filterCity} />
 
