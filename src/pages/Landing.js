@@ -17,7 +17,7 @@ export default function LandingPage() {
 
 const tiles = [
   {
-    title: "Browse Listings",
+    title: "Browse Animals",
     icon: faPaw,
     path: "/view-pups",
     color: "#4e73df",

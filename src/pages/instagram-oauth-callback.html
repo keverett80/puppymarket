@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Instagram OAuth Callback</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding-top: 80px;
+    }
+    .code-box {
+      margin-top: 20px;
+      padding: 12px;
+      border: 1px solid #ccc;
+      background: #f8f8f8;
+      display: inline-block;
+      font-size: 1.2rem;
+    }
+  </style>
+</head>
+<body>
+  <h1>✅ Instagram Authorization Complete</h1>
+  <p>Here is your <strong>authorization code</strong>:</p>
+  <div class="code-box" id="authCode">Loading...</div>
+
+  <script>
+    const params = new URLSearchParams(window.location.search);
+    const code = params.get('code');
+    const error = params.get('error');
+
+    if (code) {
+      document.getElementById('authCode').textContent = code;
+    } else if (error) {
+      document.getElementById('authCode').textContent = "Error: " + error;
+    } else {
+      document.getElementById('authCode').textContent = "No code received.";
+    }
+  </script>
+</body>
+</html>
