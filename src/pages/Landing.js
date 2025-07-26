@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import './Landing.css';
 import runningAnimals from '../assets/images/loading1.gif'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import DonationCard from '../pages/DonationCard/DonationCard'
 import { faTwitter, faTiktok } from '@fortawesome/free-brands-svg-icons'
 import {
   faPaw,
@@ -56,8 +57,11 @@ const tiles = [
   <img src={runningAnimals} alt="Running cat and dog animation" className="hero-animation" />
 </div>
 
-          <h1 className="display-4 fw-bold">Find a Home. Give a Home.</h1>
-          <p className="lead">Helping all pets find their forever families.</p>
+        <h1 className="display-4 fw-bold">Find a Home. Give a Home.</h1>
+<p className="lead">
+  Every listing helps a pet find love — and gets shared across our social platforms to reach even more hearts. 🐾
+</p>
+
           <div className="d-flex justify-content-center gap-3 mt-4">
             <Button variant="primary" size="lg" onClick={() => navigate('/view-pups')}>
               Browse Listings
@@ -98,6 +102,41 @@ const tiles = [
         </Col>
       ))}
     </Row>
+  </Container>
+</section>
+{/* Donation Section */}
+<section className="donation-section text-center py-5 bg-light">
+  <Container>
+    <h3 className="mb-3">Support Our Mission 🐾</h3>
+    <p className="mb-4">
+      Your donations help us rescue, list, and rehome animals in need. Every dollar makes a difference.
+    </p>
+    <div className="d-flex justify-content-center gap-3 flex-wrap">
+      <Button
+        variant="danger"
+        href="https://www.paypal.com/donate/?hosted_button_id=TVRSFUFEUX9LJ"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Donate via PayPal
+      </Button>
+      <Button
+            variant="success"
+            href="https://cash.app/$LittlePawsPlace"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            Donate via Cash App
+          </Button>
+      <Button
+        variant="warning"
+        href="https://www.buymeacoffee.com/littlepawsplace"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Buy Me a Coffee ☕
+      </Button>
+    </div>
   </Container>
 </section>
 

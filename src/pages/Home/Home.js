@@ -7,6 +7,17 @@ import PetfinderCard from '../../components/DogCard/PetfinderCard';
 import { Container, Row, Col, Form, Spinner, Alert } from 'react-bootstrap';
 import useScrollToTop from '../../helpers/useScrollToTop';
 import { v4 as uuidv4 } from 'uuid';
+import DonationBanner from '../../pages/DonationCard/DonationBanner'; // ⬅️ import this at the top
+
+
+const US_STATES = [
+  '', 'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
+  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD', 'MA',
+  'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ', 'NM', 'NY',
+  'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC', 'SD', 'TN', 'TX',
+  'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY'
+];
+
 
 function Home() {
   const [dogs, setDogs] = useState([]);
@@ -14,6 +25,7 @@ function Home() {
   const [isLoading, setIsLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState('');
   const scrollContainerRef = useRef(null);
+const [selectedState, setSelectedState] = useState('');
 
   useScrollToTop();
 
@@ -64,17 +76,24 @@ const combined = [...dogs, ...petfinderAnimals].filter(item => {
       ? item.breed || item.type || ''
       : item.breeds?.primary || item.species || item.type || '';
 
-  const location =
-    item.source === 'local'
-      ? item.location
-      : `${item.contact?.address?.city || ''}, ${item.contact?.address?.state || ''}`;
 
-  // Combine relevant fields into searchable text
-  const searchableText = `${breedOrType} ${location} ${item.name || ''} ${item.description || ''}`
-  .toLowerCase();
+  const state = item.source === 'local'
+  ? (item.state || '').toUpperCase()
+  : (item.contact?.address?.state || '').toUpperCase();
 
 
-  return searchableText.includes(searchTerm.toLowerCase());
+ const location =
+  item.source === 'local'
+    ? `${item.location || ''}, ${item.state || ''}`
+    : `${item.contact?.address?.city || ''}, ${item.contact?.address?.state || ''}`;
+
+
+  const searchableText = `${breedOrType} ${location} ${item.name || ''} ${item.description || ''}`.toLowerCase();
+
+  const matchesSearch = searchableText.includes(searchTerm.toLowerCase());
+  const matchesState = !selectedState || state === selectedState;
+
+  return matchesSearch && matchesState;
 });
 
 
@@ -111,14 +130,28 @@ const combined = [...dogs, ...petfinderAnimals].filter(item => {
       paddingTop: '1rem',
       paddingBottom: '0.5rem',
     }}
-  >
+  ><Form.Select
+  value={selectedState}
+  onChange={e => setSelectedState(e.target.value)}
+  className="mb-3"
+>
+  <option value="">Filter by state (optional)</option>
+  {US_STATES.filter(s => s).map(state => (
+    <option key={state} value={state}>
+      {state}
+    </option>
+  ))}
+</Form.Select>
+
     <Form.Control
       type="text"
-      placeholder="Search pets by breed, type, or city..."
+      placeholder="Search pets ..."
       value={searchTerm}
       onChange={e => setSearchTerm(e.target.value)}
       className="mb-3"
     />
+      {/* ✅ Donation callout */}
+  <DonationBanner />
   </div>
 
         {isLoading ? (
@@ -153,6 +186,7 @@ const combined = [...dogs, ...petfinderAnimals].filter(item => {
         )}
       </Container>
     </div>
+
   );
 }
 

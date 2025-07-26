@@ -138,7 +138,7 @@ const isValidPhone = (phone) =>
   <CardMedia
     component="img"
     image={url}
-    alt={`Dog ${idx}`}
+    alt={`Pet ${idx}`}
     sx={{
       width: '100%',
       height: '100%',

@@ -57,7 +57,6 @@ const handleDelete = async (targetDog) => {
       return;
     }
 
-    // 1. Delete images from S3
     if (targetDog.imageUrls && Array.isArray(targetDog.imageUrls)) {
       for (const key of targetDog.imageUrls) {
         try {
@@ -68,17 +67,21 @@ const handleDelete = async (targetDog) => {
       }
     }
 
-    // 2. Delete the listing from DynamoDB
     await API.graphql(graphqlOperation(deleteDog, { input: { id: targetDog.id } }));
 
-    // 3. Update local state
-    setPostsState(prev => prev.filter(p => p.id !== targetDog.id));
+    if (typeof onRefresh === 'function') {
+      onRefresh(); // 👈 Trigger parent to reload posts
+    } else {
+      // fallback if onRefresh not passed
+      setPostsState(prev => prev.filter(p => p.id !== targetDog.id));
+    }
 
   } catch (err) {
     console.error('Delete failed', err);
     alert('Failed to delete listing.');
   }
 };
+
 
 
 const handleImageChange = (e) => {

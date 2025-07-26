@@ -17,6 +17,11 @@ import { faPen, faTrash } from '@fortawesome/free-solid-svg-icons';
 const DogCard = ({ dog, showManage = false, onEdit, onDelete }) => {
 
   const imageUrl = dog?.imageUrls?.[0] || '/fallback-dog.png';
+const toTitleCase = str =>
+  str.toLowerCase().replace(/\b\w/g, l => l.toUpperCase());
+
+const city = dog.location ? toTitleCase(dog.location) : '';
+const state = dog.state || '';
 
 
   if (!dog) return null;
@@ -49,7 +54,9 @@ const DogCard = ({ dog, showManage = false, onEdit, onDelete }) => {
         <Typography variant="body2" color="text.secondary">
           Breed: {dog.breed || '—'}<br />
           Price: {dog.price ? `$${dog.price}` : '—'}<br />
-          Location: {dog.location || '—'}
+          Location: {city && state ? `${city}, ${state}` : city || '—'}
+
+
         </Typography>
 
         <Box mt={2} display="flex" justifyContent="space-between" alignItems="center">

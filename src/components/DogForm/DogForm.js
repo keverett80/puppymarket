@@ -95,11 +95,12 @@ const handlePlaceSelect = () => {
     return;
   }
 
-  setDog(prev => ({
-    ...prev,
-    location: city,
-    state
-  }));
+ setDog(prev => ({
+  ...prev,
+  location: city,
+  state: state.toUpperCase(),  // ✅ normalize casing
+}));
+
 
   setInputValue(`${city}, ${state}`);
   setErrors(prev => ({ ...prev, location: "" }));
