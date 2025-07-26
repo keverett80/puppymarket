@@ -4,20 +4,20 @@ import { useParams } from 'react-router-dom';
 export default function Redirect() {
   const { slug } = useParams();
 
-  useEffect(() => {
-    const lookupAndRedirect = async () => {
-      // OPTIONAL: real lookup logic based on `slug` (e.g., cached from Lambda)
-      const knownRedirects = {
-        'rosie': 'https://www.petfinder.com/dog/rosie-123456789',
-        'mister-snuffleupagus': 'https://www.petfinder.com/cat/mister-snuffleupagus-987654321',
-      };
+useEffect(() => {
+  const fetchRedirect = async () => {
+    try {
+      const res = await fetch(`https://littlepawsplace-redirects.s3.amazonaws.com/redirects/${slug}.json`);
+      const data = await res.json();
+      window.location.href = data.url || 'https://www.littlepawsplace.com';
+    } catch (err) {
+      window.location.href = 'https://www.littlepawsplace.com';
+    }
+  };
 
-      const redirectUrl = knownRedirects[slug] || 'https://www.littlepawsplace.com';
-      window.location.href = redirectUrl;
-    };
+  fetchRedirect();
+}, [slug]);
 
-    lookupAndRedirect();
-  }, [slug]);
 
   return <p>Redirecting you to the adoption page…</p>;
 }
