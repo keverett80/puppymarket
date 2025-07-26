@@ -120,7 +120,7 @@ const combined = [...dogs, ...petfinderAnimals].filter(item => {
       ref={scrollContainerRef}
       style={{ marginTop: '1rem', height: '80vh', overflowY: 'auto' }}
     >
-     <Container>
+     <Container>  <DonationBanner />
   <div
     style={{
       position: 'sticky',
@@ -151,7 +151,7 @@ const combined = [...dogs, ...petfinderAnimals].filter(item => {
       className="mb-3"
     />
       {/* ✅ Donation callout */}
-  <DonationBanner />
+
   </div>
 
         {isLoading ? (

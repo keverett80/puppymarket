@@ -202,7 +202,7 @@ const imageUrls = await Promise.all(
 
     setDog(initialState);
     setStep(0);
-    alert('Dog listed successfully!');
+    alert('Pet listed successfully!');
     navigate('/profile');
   } catch (error) {
     console.error('Submission error:', error);

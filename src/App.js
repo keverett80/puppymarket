@@ -24,6 +24,10 @@ import InstagramCallback from './pages/InstagramCallback/InstagramCallback'
 import './App.css'; // Import your CSS file for styling
 import awsconfig from './aws-exports';
 import { AnimatePresence } from 'framer-motion';
+import Redirect from './Redirect';
+
+
+
 
 Amplify.configure(awsconfig);
 
@@ -114,6 +118,7 @@ function App() {
             } />
 
 
+<Route path="/redirect/:slug" element={<Redirect />} />
 
 {<Route path="/login" element={<LoginPage />} />}
 <Route path="/oauth/instagram" element={<InstagramCallback />} />
