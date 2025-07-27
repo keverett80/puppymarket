@@ -28,6 +28,7 @@ function DogDetailsMui() {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('sm'));
+const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
 
   const [dog, setDog] = useState(null);
   const [userEmail, setUserEmail] = useState('');
@@ -113,8 +114,15 @@ const isValidPhone = (phone) =>
             </Button>
           )}
           {userEmail === dog.verified && (
-            <Button variant="outlined" color="error" onClick={handleDelete}>Delete Listing</Button>
-          )}
+  <Button
+    variant="outlined"
+    color="error"
+    onClick={() => setShowDeleteConfirm(true)}
+  >
+    Delete Listing
+  </Button>
+)}
+
           <Button onClick={() => navigate(-1)} sx={{ ml: 2 }}>Back</Button>
         </Grid>
 
@@ -250,6 +258,19 @@ const isValidPhone = (phone) =>
 
         </DialogActions>
       </Dialog>
+      <Dialog open={showDeleteConfirm} onClose={() => setShowDeleteConfirm(false)}>
+  <DialogTitle>Confirm Deletion</DialogTitle>
+  <DialogContent>
+    <Typography>
+      Are you sure you want to permanently delete <strong>{dog.name}</strong>'s listing? This cannot be undone.
+    </Typography>
+  </DialogContent>
+  <DialogActions>
+    <Button onClick={() => setShowDeleteConfirm(false)}>Cancel</Button>
+    <Button color="error" onClick={handleDelete}>Yes, Delete</Button>
+  </DialogActions>
+</Dialog>
+
     </Box>
   );
 }

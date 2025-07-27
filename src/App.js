@@ -25,8 +25,8 @@ import './App.css'; // Import your CSS file for styling
 import awsconfig from './aws-exports';
 import { AnimatePresence } from 'framer-motion';
 import Redirect from './Redirect';
-
-
+import ContactSupport from './pages/ContactSupport/ContactSupport';
+import AboutPage from './pages/AboutPage/AboutPage';
 
 
 Amplify.configure(awsconfig);
@@ -117,6 +117,10 @@ function App() {
               </ProtectedRoute>
             } />
 
+
+<Route path="/about" element={<AboutPage />} />
+
+<Route path="/contact-support" element={<ContactSupport />} />
 
 <Route path="/redirect/:slug" element={<Redirect />} />
 

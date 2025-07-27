@@ -40,32 +40,30 @@ function NavbarComponent({ isAuthenticated, setIsAuthenticated }) {
     navigate('/');
   };
 
-  const handleDeleteProfile = async () => {
-    const confirmed = window.confirm("This will permanently delete your account and all associated listings. Continue?");
-    if (!confirmed) return;
+const handleDeleteProfile = async () => {
+  try {
+    const user = await Auth.currentAuthenticatedUser();
+    const email = user.attributes.email;
 
-    try {
-      const user = await Auth.currentAuthenticatedUser();
-      const email = user.attributes.email;
+    const dogData = await API.graphql(graphqlOperation(listDogs, { filter: { verified: { eq: email } } }));
+    const dogs = dogData.data.listDogs.items;
 
-      const dogData = await API.graphql(graphqlOperation(listDogs, { filter: { verified: { eq: email } } }));
-      const dogs = dogData.data.listDogs.items;
-
-      for (const dog of dogs) {
-        await API.graphql(graphqlOperation(deleteDog, { input: { id: dog.id } }));
-        for (const key of dog.imageUrls || []) {
-          await Storage.remove(key, { level: 'public' });
-        }
+    for (const dog of dogs) {
+      await API.graphql(graphqlOperation(deleteDog, { input: { id: dog.id } }));
+      for (const key of dog.imageUrls || []) {
+        await Storage.remove(key, { level: 'public' });
       }
-
-      await Auth.deleteUser();
-      alert("Your account has been deleted.");
-      navigate('/');
-    } catch (err) {
-      console.error("Failed to delete profile:", err);
-      alert("Something went wrong. Try again later.");
     }
-  };
+
+    await Auth.deleteUser();
+    alert("Your account has been deleted.");
+    navigate('/');
+  } catch (err) {
+    console.error("Failed to delete profile:", err);
+    alert("Something went wrong. Try again later.");
+  }
+};
+
 
   return (
 <Navbar expand="lg" style={{ backgroundColor: 'transparent', border: '1px solid #e8e8e8' }}>
@@ -85,15 +83,25 @@ function NavbarComponent({ isAuthenticated, setIsAuthenticated }) {
             <Button variant="light" onClick={() => navigate('/add-dog')} title="Add Dog" className="mx-1">
               <FontAwesomeIcon icon={faPlusCircle} />
             </Button>
-            <Button variant="light" onClick={() => navigate('/profile')} title="Profile" className="mx-1">
-              <FontAwesomeIcon icon={faUserCircle} />
-            </Button>
-            <Button variant="light" onClick={() => setShowEditModal(true)} title="Edit Profile" className="mx-1">
-              <FontAwesomeIcon icon={faUserEdit} />
-            </Button>
-            <Button variant="light" onClick={handleLogout} title="Logout" className="mx-1">
-              <FontAwesomeIcon icon={faRightFromBracket} />
-            </Button>
+          <Button variant="light" onClick={() => navigate('/profile')} title="Profile" className="mx-1">
+  <FontAwesomeIcon icon={faUserCircle} />
+</Button>
+
+<Button
+  variant="outline-secondary"
+  onClick={() => navigate('/contact-support')}
+  title="Contact Support"
+  className="mx-1"
+>
+  Support
+</Button>
+
+<Button variant="light" onClick={handleLogout} title="Logout" className="mx-1">
+  <FontAwesomeIcon icon={faRightFromBracket} />
+</Button>
+
+
+
             <Button variant="danger" onClick={() => setShowDeleteModal(true)} title="Delete Profile" className="mx-1">
               <FontAwesomeIcon icon={faUserSlash} />
             </Button>
@@ -110,6 +118,28 @@ function NavbarComponent({ isAuthenticated, setIsAuthenticated }) {
         )}
       </div>
     </Navbar.Collapse>
+    <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+  <Modal.Header closeButton>
+    <Modal.Title>Confirm Account Deletion</Modal.Title>
+  </Modal.Header>
+  <Modal.Body>
+    <p>
+      This action will permanently delete your account and remove all your listings and images from our platform.
+    </p>
+    <p className="text-danger fw-bold">
+      Are you sure you want to proceed?
+    </p>
+  </Modal.Body>
+  <Modal.Footer>
+    <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+      Cancel
+    </Button>
+    <Button variant="danger" onClick={handleDeleteProfile}>
+      Yes, Delete My Account
+    </Button>
+  </Modal.Footer>
+</Modal>
+
   </Container>
 </Navbar>
 

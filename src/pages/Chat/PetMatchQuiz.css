@@ -1,78 +1,45 @@
 .chat-window {
-    height: 400px;
-    overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 15px;
-    margin-bottom: 10px;
-}
-
-
-
-.bully-avatar {
-    max-width: 100px !important;
-    /* Adjust the size as needed */
-    margin-bottom: 20px;
-    /* Add some space below the avatar */
-}
-
-.avatar-container {
-    display: flex;
-    align-items: start;
-    /* Align to the top */
-    justify-content: center;
-    /* Center horizontally */
-}
-
-.chat-window {
     height: 300px;
     overflow-y: auto;
-    border: none;
     padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    background-color: #fafafa;
     margin-bottom: 10px;
-}
-
-.message-sent {
-    color: white;
-    background-color: #0A84FF;
-    /* iPhone blue */
-    padding: 10px;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    max-width: 60%;
-    align-self: flex-end;
-}
-
-.message-received {
-    background-color: #E5E5EA;
-    /* Light gray */
-    padding: 10px;
-    border-radius: 15px;
-    margin-bottom: 10px;
-    max-width: 60%;
 }
 
 .chat-message {
-    padding: 10px 15px;
-    border-radius: 20px;
+    display: flex;
+    align-items: flex-start;
     margin-bottom: 10px;
-    max-width: 75%;
-    word-wrap: break-word;
+    max-width: 100%;
 }
 
-.user-message {
+.chat-message.user {
+    justify-content: flex-end;
+}
+
+.chat-message.assistant {
+    justify-content: flex-start;
+}
+
+.chat-bubble {
+    padding: 10px 15px;
+    border-radius: 20px;
+    max-width: 70%;
+    word-wrap: break-word;
+    font-size: 0.95rem;
+}
+
+.chat-bubble.user {
     background-color: #0A84FF;
-    /* Blue color for user messages */
     color: white;
-    margin-left: auto;
-    /* Align to the right */
     border-bottom-right-radius: 0;
 }
 
-.ai-message {
-    background-color: #E5E5EA;
-    /* Light gray for AI messages /
-  color: black;
-  margin-right: auto; / Align to the left */
+.chat-bubble.assistant {
+    background-color: #e6e6e6;
+    color: #222;
     border-bottom-left-radius: 0;
 }
 
@@ -80,12 +47,12 @@
     height: 40px;
     display: flex;
     align-items: center;
-    justify-content: start;
+    padding-left: 10px;
 }
 
 .dot {
-    height: 10px;
-    width: 10px;
+    height: 8px;
+    width: 8px;
     margin: 0 3px;
     background-color: #9b9b9b;
     border-radius: 50%;
@@ -114,17 +81,29 @@
     }
 }
 
+.input-section {
+    display: flex;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.input-section img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    border-radius: 50%;
+}
+
 .avatar {
     width: 120px;
     height: 120px;
     object-fit: cover;
     border-radius: 50%;
-    /* Optional */
+    margin-bottom: 20px;
 }
 
 .avatar:hover {
     transform: scale(1.1);
-    /* Slightly enlarges the avatar on hover */
     transition: transform 0.3s ease-in-out;
 }
 
@@ -134,14 +113,11 @@
     font-size: 1em;
     color: #fff;
     background-color: #007bff;
-    /* Change as per your color scheme */
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s;
 }
 
 .back-button:hover {
     background-color: #0056b3;
-    /* Darken color on hover */
 }

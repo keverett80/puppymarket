@@ -39,7 +39,7 @@ const tiles = [
     path: "/pet-match",
     color: "#f39c12",
     textColor: "#111",
-    description: "Take our quiz — discover your perfect pet match.",
+    description: "Test your knowledge — discover your perfect pet match.",
   }
 ];
 
@@ -146,7 +146,7 @@ const tiles = [
   <p className="mb-1">Made with 🐾 by LittlePawPlace</p>
   <p>
     <a href="/about">About</a> |{" "}
-    <a href="/contact">Contact</a> |{" "}
+    <a href="/contact-support">Contact</a> |{" "}
     <a href="/term-service">Terms</a> |{" "}
     <a href="/privacy-policy">Privacy</a>
   </p>
